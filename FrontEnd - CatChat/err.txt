@@ -1,0 +1,29 @@
+[+8344 ms] Error: Building with plugins requires symlink support.
+                    
+                    Please enable Developer Mode in your system settings. Run
+                      start ms-settings:developers
+                    to open settings.
+[ +101 ms] 
+                    #0      throwToolExit (package:flutter_tools/src/base/common.dart:34:3)
+                    #1      RunCommand.runCommand (package:flutter_tools/src/commands/run.dart:897:9)
+                    <asynchronous suspension>
+                    #2      FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:1559:27)
+                    <asynchronous suspension>
+                    #3      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+                    <asynchronous suspension>
+                    #4      CommandRunner.runCommand (package:args/command_runner.dart:212:13)
+                    <asynchronous suspension>
+                    #5      FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:487:9)
+                    <asynchronous suspension>
+                    #6      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+                    <asynchronous suspension>
+                    #7      FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:422:5)
+                    <asynchronous suspension>
+                    #8      run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:104:11)
+                    <asynchronous suspension>
+                    #9      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+                    <asynchronous suspension>
+                    #10     main (package:flutter_tools/executable.dart:103:3)
+                    <asynchronous suspension>
+                    
+                    
