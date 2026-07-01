@@ -16,7 +16,7 @@ class ApiService { // Mendefinisikan kelas ApiService untuk mengelola semua inte
   // Komentar ini memberikan panduan tentang cara mengkonfigurasi baseUrl untuk lingkungan yang berbeda, seperti emulator Android atau perangkat fisik, karena 'localhost' dapat merujuk pada perangkat itu sendiri atau mesin host.
   // Contoh konfigurasi untuk emulator Android: 'http://10.0.2.2:3000/api'
   // Contoh konfigurasi untuk perangkat fisik di jaringan lokal: 'http://192.168.1.5:3000/api' (ganti dengan IP lokal mesin Anda)
-  static const String baseUrl = 'http://localhost:3000/api'; // Mendefinisikan URL dasar untuk semua endpoint API. Ini adalah konstanta yang digunakan sebagai prefiks untuk semua permintaan.
+  static const String baseUrl = 'http://192.168.1.69:3000/api'; // Mendefinisikan URL dasar untuk semua endpoint API. Ini adalah konstanta yang digunakan sebagai prefiks untuk semua permintaan.
   static const String _tokenKey = 'catchat_jwt_token'; // Mendefinisikan kunci string yang digunakan untuk menyimpan dan mengambil token JWT dari SharedPreferences. Ini adalah konstanta privat yang menandakan bahwa itu hanya untuk penggunaan internal kelas.
 
   Future<void> saveToken(String token) async { // Metode asinkron untuk menyimpan token otentikasi (JWT) ke penyimpanan lokal menggunakan SharedPreferences.
