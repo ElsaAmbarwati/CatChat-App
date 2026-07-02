@@ -14,7 +14,6 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/auth_service.dart';
 
-
 // ==========================================
 // Class ChatPages
 // Fungsi: Mendeklarasikan halaman/komponen visual ini.
@@ -23,7 +22,7 @@ import '../services/auth_service.dart';
 class ChatPages extends StatefulWidget {
   final List<ChatMessage>? initialMessages;
   final String? sessionId;
-  
+
   const ChatPages({this.initialMessages, this.sessionId, super.key});
 
   @override
@@ -34,7 +33,6 @@ class _ChatPagesState extends State<ChatPages> {
   final ChatController _chatController = ChatController();
 
   @override
-  
   // Fungsi initState: Dijalankan pertama kali saat halaman ini dibuka.
   // Biasanya terhubung ke backend untuk mengambil data awal sebelum layar dimunculkan.
   void initState() {
@@ -52,7 +50,8 @@ class _ChatPagesState extends State<ChatPages> {
       // Pesan sambutan pertama kali untuk sesi baru
       _chatController.messages.add(
         ChatMessage(
-          text: "Halo! 👋 Aku Teman Curhat AI-mu. Gimana kabarmu hari ini? Ada yang mau kamu ceritain? Aku siap dengerin kok tanpa menghakimi. 😊",
+          text:
+              "Halo! 👋 Aku Teman Curhat AI-mu. Gimana kabarmu hari ini? Ada yang mau kamu ceritain? Aku siap dengerin kok tanpa menghakimi. 😊",
           isAi: true,
           time: DateTime.now(),
         ),
@@ -67,7 +66,6 @@ class _ChatPagesState extends State<ChatPages> {
   }
 
   @override
-  
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
@@ -75,248 +73,295 @@ class _ChatPagesState extends State<ChatPages> {
       listenable: _chatController,
       builder: (context, _) {
         return Scaffold(
-      backgroundColor: Color(0xFFFAF4F0),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(
-                  vertical: 18,
-                  horizontal: 18,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: Color(0xFFE7D8CF)),
-                ),
-                child: Row(
-                  children: [
-                    InkWell(
-                      borderRadius: BorderRadius.circular(16),
-                      onTap: () {
-                        _chatController.persistSession();
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF7F1EE),
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Color(0xFF5D4A45),
-                        ),
-                      ),
+          backgroundColor: Color(0xFFFAF4F0),
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: Color(0xFFE7D8CF)),
                     ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Teman Curhat AI',
+                    child: Row(
+                      children: [
+                        InkWell(
+                          borderRadius: BorderRadius.circular(16),
+                          onTap: () {
+                            _chatController.persistSession();
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                            width: 36,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF7F1EE),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Color(0xFF5D4A45),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Teman Curhat AI',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF3F3734),
+                                ),
+                              ),
+                              SizedBox(height: 6),
+                              Text(
+                                'Teman curhat anonim yang mendengarkan dan memberi saran.',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  height: 1.4,
+                                  color: Color(0xFF7B6F65),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF4B5A3),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: Text(
+                            'AI',
                             style: TextStyle(
-                              fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF3F3734),
+                              color: Color(0xFF5D4A45),
                             ),
                           ),
-                          SizedBox(height: 6),
-                          Text(
-                            'Teman curhat anonim yang mendengarkan dan memberi saran.',
-                            style: TextStyle(
-                              fontSize: 13,
-                              height: 1.4,
-                              color: Color(0xFF7B6F65),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFF4B5A3),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Text(
-                        'AI',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF5D4A45),
                         ),
-                      ),
-                    ),
-                    SizedBox(width: 4),
-                    IconButton(
-                      icon: Icon(Icons.add_circle_outline, color: Color(0xFF5D4A45)),
-                      tooltip: 'Buat Sesi Baru',
-                      onPressed: () {
-                        _chatController.persistSession();
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const ChatPages(),
+                        SizedBox(width: 4),
+                        IconButton(
+                          icon: Icon(
+                            Icons.add_circle_outline,
+                            color: Color(0xFF5D4A45),
                           ),
-                        );
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.history, color: Color(0xFF5D4A45)),
-                      tooltip: 'Riwayat Chat',
-                      onPressed: () {
-                        _chatController.persistSession();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const ChatHistoryPage(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 16),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(22),
-                    border: Border.all(color: Color(0xFFE7D8CF)),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: ListView.builder(
-                          controller: _chatController.scrollController,
-                          itemCount: _chatController.messages.length + (_chatController.isTyping ? 1 : 0),
-                          itemBuilder: (context, index) {
-                            if (index == _chatController.messages.length && _chatController.isTyping) {
-                              return Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Row(
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundColor: Color(0xFFF7F1EE),
-                                        child: Image.asset('assets/images/logo2.png', width: 20, height: 20),
-                                      ),
-                                      SizedBox(width: 8),
-                                      Text('Mengetik...', style: TextStyle(color: Colors.grey)),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
-                            final msg = _chatController.messages[index];
-                            return Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Align(
-                                alignment: msg.isAi ? Alignment.centerLeft : Alignment.centerRight,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: msg.isAi ? MainAxisAlignment.start : MainAxisAlignment.end,
-                                  children: [
-                                    if (msg.isAi) ...[
-                                      CircleAvatar(
-                                        backgroundColor: Color(0xFFF7F1EE),
-                                        child: Image.asset('assets/images/logo2.png', width: 24, height: 24),
-                                      ),
-                                      SizedBox(width: 8),
-                                    ],
-                                    Flexible(
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                                        decoration: BoxDecoration(
-                                          color: msg.isAi ? Color(0xFFF7F1EE) : Color(0xFFB0B8BE),
-                                          borderRadius: BorderRadius.circular(14),
-                                        ),
-                                        child: Text(msg.text, style: TextStyle(color: msg.isAi ? Color(0xFF3F3734) : Colors.white)),
-                                      ),
-                                    ),
-                                    if (!msg.isAi) ...[
-                                      SizedBox(width: 8),
-                                      CircleAvatar(
-                                        backgroundColor: Color(0xFFD8D4E3),
-                                        child: Icon(Icons.person, color: Color(0xFF5D4A45)),
-                                      ),
-                                    ],
-                                  ],
-                                ),
+                          tooltip: 'Buat Sesi Baru',
+                          onPressed: () {
+                            _chatController.persistSession();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const ChatPages(),
                               ),
                             );
                           },
                         ),
+                        IconButton(
+                          icon: Icon(Icons.history, color: Color(0xFF5D4A45)),
+                          tooltip: 'Riwayat Chat',
+                          onPressed: () {
+                            _chatController.persistSession();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const ChatHistoryPage(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(color: Color(0xFFE7D8CF)),
                       ),
-                      SizedBox(height: 12),
-                      Row(
+                      child: Column(
                         children: [
                           Expanded(
-                            child: TextField(
-                              controller: _chatController.textController,
-                              decoration: InputDecoration(
-                                hintText: 'Ketik pesan...',
-                                contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide(color: Color(0xFFE7D8CF)),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide(color: Color(0xFFE7D8CF)),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide(color: Color(0xFFF4B5A3)),
-                                ),
-                              ),
-                              onSubmitted: (_) => _chatController.sendMessage(),
+                            child: ListView.builder(
+                              controller: _chatController.scrollController,
+                              itemCount:
+                                  _chatController.messages.length +
+                                  (_chatController.isTyping ? 1 : 0),
+                              itemBuilder: (context, index) {
+                                if (index == _chatController.messages.length &&
+                                    _chatController.isTyping) {
+                                  return Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 8),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Row(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor: Color(0xFFF7F1EE),
+                                            child: Image.asset(
+                                              'assets/images/logo2.png',
+                                              width: 20,
+                                              height: 20,
+                                            ),
+                                          ),
+                                          SizedBox(width: 8),
+                                          Text(
+                                            'Mengetik...',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }
+                                final msg = _chatController.messages[index];
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 8),
+                                  child: Align(
+                                    alignment: msg.isAi
+                                        ? Alignment.centerLeft
+                                        : Alignment.centerRight,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment: msg.isAi
+                                          ? MainAxisAlignment.start
+                                          : MainAxisAlignment.end,
+                                      children: [
+                                        if (msg.isAi) ...[
+                                          CircleAvatar(
+                                            backgroundColor: Color(0xFFF7F1EE),
+                                            child: Image.asset(
+                                              'assets/images/logo2.png',
+                                              width: 24,
+                                              height: 24,
+                                            ),
+                                          ),
+                                          SizedBox(width: 8),
+                                        ],
+                                        Flexible(
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 14,
+                                              vertical: 12,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: msg.isAi
+                                                  ? Color(0xFFF7F1EE)
+                                                  : Color(0xFFB0B8BE),
+                                              borderRadius:
+                                                  BorderRadius.circular(14),
+                                            ),
+                                            child: Text(
+                                              msg.text,
+                                              style: TextStyle(
+                                                color: msg.isAi
+                                                    ? Color(0xFF3F3734)
+                                                    : Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        if (!msg.isAi) ...[
+                                          SizedBox(width: 8),
+                                          CircleAvatar(
+                                            backgroundColor: Color(0xFFD8D4E3),
+                                            child: Icon(
+                                              Icons.person,
+                                              color: Color(0xFF5D4A45),
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                          SizedBox(width: 8),
-                          InkWell(
-                            onTap: _chatController.sendMessage,
-                            borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              padding: EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF4B5A3),
-                                shape: BoxShape.circle,
+                          SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: _chatController.textController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Ketik pesan...',
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 12,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE7D8CF),
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE7D8CF),
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFF4B5A3),
+                                      ),
+                                    ),
+                                  ),
+                                  onSubmitted: (_) =>
+                                      _chatController.sendMessage(),
+                                ),
                               ),
-                              child: Icon(Icons.send, color: Color(0xFF5D4A45)),
-                            ),
+                              SizedBox(width: 8),
+                              InkWell(
+                                onTap: _chatController.sendMessage,
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  padding: EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFF4B5A3),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.send,
+                                    color: Color(0xFF5D4A45),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        );
       },
     );
   }
 }
-
-
-
 
 // ==========================================
 // Class ChatHistoryPage
@@ -334,7 +379,6 @@ class _ChatHistoryPageState extends State<ChatHistoryPage> {
   List<Map<String, dynamic>> _sessions = [];
 
   @override
-  
   // Fungsi initState: Dijalankan pertama kali saat halaman ini dibuka.
   // Biasanya terhubung ke backend untuk mengambil data awal sebelum layar dimunculkan.
   void initState() {
@@ -372,7 +416,6 @@ class _ChatHistoryPageState extends State<ChatHistoryPage> {
   }
 
   @override
-  
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
@@ -385,10 +428,7 @@ class _ChatHistoryPageState extends State<ChatHistoryPage> {
           icon: Icon(Icons.arrow_back, color: Color(0xFF5D4A45)),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(
-          'Riwayat Chat',
-          style: TextStyle(color: Color(0xFF3F3734)),
-        ),
+        title: Text('Riwayat Chat', style: TextStyle(color: Color(0xFF3F3734))),
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -412,17 +452,14 @@ class _ChatHistoryPageState extends State<ChatHistoryPage> {
                         ? (messages.last['text'] ?? '')
                         : '';
                     return ListTile(
-                      title: Text('Sesi ${index + 1}'),
+                      title: Text('Sesi ${_sessions.length - index}'),
                       subtitle: Text(
                         preview,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       trailing: IconButton(
-                        icon: Icon(
-                          Icons.delete,
-                          color: Color(0xFFB0B8BE),
-                        ),
+                        icon: Icon(Icons.delete, color: Color(0xFFB0B8BE)),
                         onPressed: () => _deleteSession(index),
                       ),
                       onTap: () {
@@ -442,7 +479,6 @@ class _ChatHistoryPageState extends State<ChatHistoryPage> {
   }
 }
 
-
 // ==========================================
 // Class ChatHistoryDetailPage
 // Fungsi: Mendeklarasikan halaman/komponen visual ini.
@@ -454,7 +490,6 @@ class ChatHistoryDetailPage extends StatelessWidget {
   const ChatHistoryDetailPage({required this.session, super.key});
 
   @override
-  
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
@@ -532,10 +567,7 @@ class ChatHistoryDetailPage extends StatelessWidget {
                       SizedBox(width: 8),
                       CircleAvatar(
                         backgroundColor: Color(0xFFD8D4E3),
-                        child: Icon(
-                          Icons.person,
-                          color: Color(0xFF5D4A45),
-                        ),
+                        child: Icon(Icons.person, color: Color(0xFF5D4A45)),
                       ),
                     ],
                   ],
@@ -556,7 +588,8 @@ class ChatHistoryDetailPage extends StatelessWidget {
                 sessionId: session['id'] as String?,
               ),
             ),
-            (route) => route.isFirst, // Menyisakan halaman Home di tumpukan terbawah
+            (route) =>
+                route.isFirst, // Menyisakan halaman Home di tumpukan terbawah
           );
         },
         icon: Icon(Icons.forum),
