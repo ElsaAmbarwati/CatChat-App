@@ -1,3 +1,4 @@
+import '../widgets/constrained_scaffold.dart';
 // Penjelasan file dan tujuannya:
 // Nama file: mood_tracker.dart
 // Deskripsi: File ini mengatur antarmuka pengguna (UI) dan apa yang dilihat pengguna di layar.
@@ -56,7 +57,7 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
         final averageMood = _controller.averageScore; // Mendapatkan skor rata-rata mood.
         final dominantMood = _controller.dominantMood; // Mendapatkan mood yang paling dominan.
 
-    return Scaffold( // Scaffold adalah struktur dasar untuk layar Flutter.
+    return ConstrainedScaffold( // Scaffold adalah struktur dasar untuk layar Flutter.
       backgroundColor: _backgroundColor, // Mengatur warna latar belakang layar.
       body: SafeArea( // SafeArea memastikan konten tidak tumpang tindih dengan notch atau status bar.
         child: Padding( // Padding menambahkan ruang di sekitar konten.
@@ -129,9 +130,13 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
   }
 
   Widget _buildHeader() { // Metode untuk membangun bagian header widget.
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return Container( // Container utama untuk header.
       width: double.infinity, // Mengisi lebar penuh yang tersedia.
-      padding: EdgeInsets.symmetric(vertical: 18, horizontal: 18), // Padding internal.
+      padding: EdgeInsets.symmetric(
+        vertical: isWide ? 18 : 12, 
+        horizontal: isWide ? 18 : 12
+      ), // Padding internal.
       decoration: BoxDecoration( // Mendefinisikan tampilan visual container.
         color: _cardColor, // Warna latar belakang header.
         borderRadius: BorderRadius.circular(24), // Sudut membulat.
@@ -147,13 +152,13 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
                 onTap: () => // Aksi yang terjadi saat InkWell diketuk.
                     Navigator.of(context).popUntil((route) => route.isFirst), // Kembali ke halaman pertama (root) dari navigator.
                 child: Container( // Container untuk tombol kembali.
-                  width: 30, // Lebar tombol.
-                  height: 30, // Tinggi tombol.
+                  width: isWide ? 30 : 24, // Lebar tombol.
+                  height: isWide ? 30 : 24, // Tinggi tombol.
                   decoration: BoxDecoration( // Dekorasi tombol kembali.
                     color: _softColor, // Warna latar belakang tombol.
                     borderRadius: BorderRadius.circular(14), // Sudut membulat tombol.
                   ),
-                  child: Icon(Icons.arrow_back, color: Color(0xFF5D4A45)), // Ikon panah kembali.
+                  child: Icon(Icons.arrow_back, size: isWide ? 20 : 16, color: Color(0xFF5D4A45)), // Ikon panah kembali.
                 ),
               ),
               SizedBox(width: 12), // Ruang horizontal antara tombol kembali dan judul.
@@ -161,7 +166,7 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
                 child: Text( // Teks judul "Mood Tracker".
                   'Mood Tracker',
                   style: TextStyle( // Gaya teks judul.
-                    fontSize: 24, // Ukuran font.
+                    fontSize: isWide ? 24 : 18, // Ukuran font.
                     fontWeight: FontWeight.bold, // Ketebalan font.
                     color: _textColor, // Warna teks.
                   ),
@@ -173,7 +178,7 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
           Text( // Teks deskripsi tentang fitur Mood Tracker.
             'Catat mood harianmu dalam tampilan yang lembut seperti jurnal, lengkap dengan gambar mood dan grafik tren.',
             style: TextStyle( // Gaya teks deskripsi.
-              fontSize: 14, // Ukuran font.
+              fontSize: isWide ? 14 : 11, // Ukuran font.
               height: 1.6, // Tinggi baris.
               color: _secondaryTextColor, // Warna teks.
             ),
@@ -184,62 +189,66 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
   }
 
   Widget _buildMoodHighlights(double averageMood, MoodType dominantMood) { // Metode untuk membangun bagian sorotan mood.
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return Container( // Container utama untuk sorotan mood.
-      padding: EdgeInsets.all(18), // Padding internal.
+      padding: EdgeInsets.all(isWide ? 18 : 12), // Padding internal.
       decoration: BoxDecoration( // Dekorasi container.
         color: _cardColor, // Warna latar belakang.
-        borderRadius: BorderRadius.circular(24), // Sudut membulat.
+        borderRadius: BorderRadius.circular(isWide ? 24 : 18), // Sudut membulat.
         border: Border.all(color: _borderColor), // Border.
       ),
       child: Row( // Row untuk menata elemen sorotan mood secara horizontal.
         children: [ // Daftar widget anak.
           Container( // Container untuk ikon mood dominan.
-            width: 72, // Lebar container ikon.
-            height: 72, // Tinggi container ikon.
+            width: isWide ? 72 : 54, // Lebar container ikon.
+            height: isWide ? 72 : 54, // Tinggi container ikon.
             decoration: BoxDecoration( // Dekorasi container ikon.
               color: dominantMood.tintColor.withValues(alpha: 0.35), // Warna latar belakang ikon dengan transparansi.
-              borderRadius: BorderRadius.circular(22), // Sudut membulat.
+              borderRadius: BorderRadius.circular(isWide ? 22 : 16), // Sudut membulat.
             ),
             child: Padding( // Padding di dalam container ikon.
-              padding: EdgeInsets.all(12), // Padding internal.
+              padding: EdgeInsets.all(isWide ? 12 : 8), // Padding internal.
               child: Image.asset(dominantMood.imagePath, fit: BoxFit.contain), // Menampilkan gambar ikon mood dominan.
             ),
           ),
-          SizedBox(width: 14), // Ruang horizontal antara ikon dan teks.
+          SizedBox(width: isWide ? 14 : 10), // Ruang horizontal antara ikon dan teks.
           Expanded( // Expanded agar teks mengisi ruang yang tersedia.
             child: Column( // Column untuk menata teks sorotan mood secara vertikal.
               crossAxisAlignment: CrossAxisAlignment.start, // Meratakan teks ke kiri.
               children: [ // Daftar widget anak.
                 Text( // Teks label "Mood dominan".
                   'Mood dominan',
-                  style: TextStyle(fontSize: 14, color: _secondaryTextColor), // Gaya teks label.
+                  style: TextStyle(fontSize: isWide ? 14 : 12, color: _secondaryTextColor), // Gaya teks label.
                 ),
-                SizedBox(height: 4), // Ruang vertikal kecil.
+                SizedBox(height: 2), // Ruang vertikal kecil.
                 Text( // Teks nama mood dominan.
                   dominantMood.label,
                   style: TextStyle( // Gaya teks nama mood.
-                    fontSize: 22, // Ukuran font.
+                    fontSize: isWide ? 22 : 16, // Ukuran font.
                     fontWeight: FontWeight.w800, // Ketebalan font.
                     color: _textColor, // Warna teks.
                   ),
                 ),
-                SizedBox(height: 6), // Ruang vertikal.
+                SizedBox(height: 4), // Ruang vertikal.
                 Text( // Teks rata-rata mood.
                   'Rata-rata mood ${averageMood.toStringAsFixed(1)} / 4',
                   style: TextStyle( // Gaya teks rata-rata mood.
-                    fontSize: 13, // Ukuran font.
+                    fontSize: isWide ? 13 : 11, // Ukuran font.
                     color: _secondaryTextColor, // Warna teks.
                   ),
                 ),
               ],
             ),
           ),
-          SizedBox(width: 12), // Ruang horizontal antara teks dan skor.
+          SizedBox(width: 8), // Ruang horizontal antara teks dan skor.
           Container( // Container untuk menampilkan skor rata-rata.
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10), // Padding internal.
+            padding: EdgeInsets.symmetric(
+              horizontal: isWide ? 12 : 10, 
+              vertical: isWide ? 10 : 8
+            ), // Padding internal.
             decoration: BoxDecoration( // Dekorasi container skor.
               color: _softColor, // Warna latar belakang.
-              borderRadius: BorderRadius.circular(16), // Sudut membulat.
+              borderRadius: BorderRadius.circular(isWide ? 16 : 12), // Sudut membulat.
               border: Border.all(color: _borderColor), // Border.
             ),
             child: Column( // Column untuk menata label "Skor" dan nilai skor secara vertikal.
@@ -247,13 +256,13 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
               children: [ // Daftar widget anak.
                 Text( // Label "Skor".
                   'Skor',
-                  style: TextStyle(fontSize: 12, color: _secondaryTextColor), // Gaya teks label skor.
+                  style: TextStyle(fontSize: isWide ? 12 : 10, color: _secondaryTextColor), // Gaya teks label skor.
                 ),
                 SizedBox(height: 2), // Ruang vertikal kecil.
                 Text( // Nilai skor rata-rata.
                   averageMood.toStringAsFixed(1),
                   style: TextStyle( // Gaya teks nilai skor.
-                    fontSize: 20, // Ukuran font.
+                    fontSize: isWide ? 20 : 16, // Ukuran font.
                     fontWeight: FontWeight.w800, // Ketebalan font.
                     color: _textColor, // Warna teks.
                   ),
@@ -273,11 +282,12 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
     required Color color, // Parameter warna utama untuk grafik.
     required _ChartType chartType, // Parameter untuk menentukan apakah grafik mingguan atau bulanan.
   }) {
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return Container( // Container utama untuk kartu grafik.
-      padding: EdgeInsets.all(18), // Padding internal.
+      padding: EdgeInsets.all(isWide ? 18 : 12), // Padding internal.
       decoration: BoxDecoration( // Dekorasi container.
         color: _cardColor, // Warna latar belakang kartu.
-        borderRadius: BorderRadius.circular(24), // Sudut membulat.
+        borderRadius: BorderRadius.circular(isWide ? 24 : 18), // Sudut membulat.
         border: Border.all(color: _borderColor), // Border.
       ),
       child: Column( // Column untuk menata elemen kartu secara vertikal.
@@ -286,15 +296,15 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
           Row( // Row untuk menata ikon, judul, dan skala secara horizontal.
             children: [ // Daftar widget anak.
               Container( // Container untuk ikon mood di kartu grafik.
-                width: 44, // Lebar container ikon.
-                height: 44, // Tinggi container ikon.
+                width: isWide ? 44 : 36, // Lebar container ikon.
+                height: isWide ? 44 : 36, // Tinggi container ikon.
                 decoration: BoxDecoration( // Dekorasi container ikon.
                   color: _softColor, // Warna latar belakang ikon.
                   borderRadius: BorderRadius.circular(14), // Sudut membulat.
                   border: Border.all(color: _borderColor), // Border.
                 ),
                 child: Padding( // Padding di dalam container ikon.
-                  padding: EdgeInsets.all(7), // Padding internal.
+                  padding: EdgeInsets.all(isWide ? 7 : 5), // Padding internal.
                   child: Image.asset( // Menampilkan gambar ikon berdasarkan tipe grafik.
                     chartType == _ChartType.weekly
                         ? 'assets/images/senang.png' // Gambar untuk grafik mingguan.
@@ -303,7 +313,7 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
                   ),
                 ),
               ),
-              SizedBox(width: 12), // Ruang horizontal antara ikon dan teks judul.
+              SizedBox(width: isWide ? 12 : 10), // Ruang horizontal antara ikon dan teks judul.
               Expanded( // Expanded agar kolom teks mengisi ruang yang tersedia.
                 child: Column( // Column untuk menata judul dan subjudul secara vertikal.
                   crossAxisAlignment: CrossAxisAlignment.start, // Meratakan teks ke kiri.
@@ -311,16 +321,16 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
                     Text( // Teks judul grafik.
                       title,
                       style: TextStyle( // Gaya teks judul.
-                        fontSize: 16, // Ukuran font.
+                        fontSize: isWide ? 16 : 13, // Ukuran font.
                         fontWeight: FontWeight.w700, // Ketebalan font.
                         color: _textColor, // Warna teks.
                       ),
                     ),
-                    SizedBox(height: 4), // Ruang vertikal kecil.
+                    SizedBox(height: isWide ? 4 : 2), // Ruang vertikal kecil.
                     Text( // Teks subjudul grafik.
                       subtitle,
                       style: TextStyle( // Gaya teks subjudul.
-                        fontSize: 13, // Ukuran font.
+                        fontSize: isWide ? 13 : 11, // Ukuran font.
                         color: _secondaryTextColor, // Warna teks.
                       ),
                     ),
@@ -329,8 +339,8 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
               ),
               Container( // Container untuk menampilkan skala mood (1-4).
                 padding: EdgeInsets.symmetric( // Padding internal.
-                  horizontal: 10,
-                  vertical: 6,
+                  horizontal: isWide ? 10 : 8,
+                  vertical: isWide ? 6 : 4,
                 ),
                 decoration: BoxDecoration( // Dekorasi container skala.
                   color: _softColor, // Warna latar belakang.
@@ -339,7 +349,7 @@ class _MoodTrackerState extends State<MoodTracker> { // Kelas state untuk MoodTr
                 child: Text( // Teks skala "1 - 4".
                   '1 - 4',
                   style: TextStyle( // Gaya teks skala.
-                    fontSize: 12, // Ukuran font.
+                    fontSize: isWide ? 12 : 10, // Ukuran font.
                     fontWeight: FontWeight.w600, // Ketebalan font.
                     color: Color(0xFF5D4A45), // Warna teks.
                   ),

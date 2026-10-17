@@ -1,3 +1,4 @@
+import '../widgets/constrained_scaffold.dart';
 // Penjelasan file dan tujuannya:
 // Nama file: journal_pages.dart
 // Deskripsi: File ini mengatur antarmuka pengguna (UI) dan apa yang dilihat pengguna di layar.
@@ -58,7 +59,7 @@ class _JournalPagesState extends State<JournalPages> {
 
         return StatefulBuilder(
           builder: (context, setLocalState) {
-            return Scaffold(
+            return ConstrainedScaffold(
               backgroundColor: Colors.white,
               resizeToAvoidBottomInset: false,
               body: SingleChildScrollView(
@@ -529,10 +530,11 @@ class _JournalPagesState extends State<JournalPages> {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return ListenableBuilder(
       listenable: _controller,
       builder: (context, _) {
-        return Scaffold(
+        return ConstrainedScaffold(
       backgroundColor: Color(0xFFFAF4F0),
       body: SafeArea(
         child: Padding(
@@ -549,8 +551,8 @@ class _JournalPagesState extends State<JournalPages> {
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(
-                    vertical: 18,
-                    horizontal: 18,
+                    vertical: isWide ? 18 : 12,
+                    horizontal: isWide ? 18 : 12,
                   ),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -568,14 +570,15 @@ class _JournalPagesState extends State<JournalPages> {
                               context,
                             ).popUntil((route) => route.isFirst),
                             child: Container(
-                              width: 30,
-                              height: 30,
+                              width: isWide ? 30 : 24,
+                              height: isWide ? 30 : 24,
                               decoration: BoxDecoration(
                                 color: Color(0xFFF7F1EE),
                                 borderRadius: BorderRadius.circular(14),
                               ),
                               child: Icon(
                                 Icons.arrow_back,
+                                size: isWide ? 20 : 16,
                                 color: Color(0xFF5D4A45),
                               ),
                             ),
@@ -585,7 +588,7 @@ class _JournalPagesState extends State<JournalPages> {
                             child: Text(
                               'Jurnal',
                               style: TextStyle(
-                                fontSize: 24,
+                                fontSize: isWide ? 24 : 18,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF3F3734),
                               ),
@@ -597,7 +600,7 @@ class _JournalPagesState extends State<JournalPages> {
                       Text(
                         'Catat harianmu, pikiran, atau perasaan yang ingin diingat.',
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: isWide ? 14 : 11,
                           height: 1.6,
                           color: Color(0xFF6D5650),
                         ),
@@ -893,8 +896,8 @@ class _JournalPagesState extends State<JournalPages> {
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: TextStyle(
-                                                        fontSize: 16,
-                                                        color: Color(0xFF3F3734),
+                                                        fontSize: 11,
+                                                        color: Color(0xFF6D5650),
                                                         fontWeight: FontWeight.w700,
                                                       ),
                                                     ),
@@ -904,7 +907,7 @@ class _JournalPagesState extends State<JournalPages> {
                                                       maxLines: 2,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: TextStyle(
-                                                        fontSize: 13,
+                                                        fontSize: 10,
                                                         height: 1.4,
                                                         color: Color(0xFF7B6F65),
                                                       ),
@@ -981,14 +984,14 @@ class _JournalPagesState extends State<JournalPages> {
                     icon: Icon(Icons.add, color: Color(0xFF5D4A45)),
                     label: Text(
                       'Tambah Jurnal',
-                      style: TextStyle(color: Color(0xFF5D4A45)),
+                      style: TextStyle(color: Color(0xFF5D4A45), fontSize: 12),
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xFFF4B5A3),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(28),
                       ),
-                      minimumSize: const Size(160, 48),
+                      minimumSize: const Size(140, 42),
                       elevation: 6,
                     ),
                   ),
@@ -1026,12 +1029,13 @@ class _JournalPagesState extends State<JournalPages> {
             day,
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              fontSize: 13,
               color: Color(0xFF5D4A45),
             ),
           ),
           Text(
             month,
-            style: TextStyle(fontSize: 10, color: Color(0xFF6D5650)),
+            style: TextStyle(fontSize: 9, color: Color(0xFF6D5650)),
           ),
         ],
       ),
@@ -1057,3 +1061,4 @@ class _JournalPagesState extends State<JournalPages> {
     return months[idx];
   }
 }
+

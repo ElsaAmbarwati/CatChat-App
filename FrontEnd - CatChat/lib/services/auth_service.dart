@@ -197,6 +197,17 @@ class AuthService {
     await clearPIN(); // Menghapus PIN yang tersimpan secara lokal. Berhubungan ke halaman login/register setelah akun berhasil dihapus.
   }
 
+  // ── PIN Reset Flag ────────────────────────────────────────────────
+  Future<void> setWantsToResetPin(bool val) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('wants_reset_pin', val);
+  }
+
+  Future<bool> getWantsToResetPin() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('wants_reset_pin') ?? false;
+  }
+
   // ── PIN ───────────────────────────────────────────────────────────
 
   // Metode privat untuk menghasilkan hash SHA256 dari sebuah string input.

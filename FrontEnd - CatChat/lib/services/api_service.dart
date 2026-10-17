@@ -20,7 +20,7 @@ class ApiService {
   // Contoh konfigurasi untuk emulator Android: 'http://10.0.2.2:3000/api'
   // Contoh konfigurasi untuk perangkat fisik di jaringan lokal: 'http://192.168.1.5:3000/api' (ganti dengan IP lokal mesin Anda)
   static const String baseUrl =
-      'http://10.83.241.220:3000/api'; // Mendefinisikan URL dasar untuk semua endpoint API. Ini adalah konstanta yang digunakan sebagai prefiks untuk semua permintaan.
+      'http://192.168.1.69:3000/api'; // Mendefinisikan URL dasar untuk semua endpoint API. Ini adalah konstanta yang digunakan sebagai prefiks untuk semua permintaan.
   static const String _tokenKey =
       'catchat_jwt_token'; // Mendefinisikan kunci string yang digunakan untuk menyimpan dan mengambil token JWT dari SharedPreferences. Ini adalah konstanta privat yang menandakan bahwa itu hanya untuk penggunaan internal kelas.
 

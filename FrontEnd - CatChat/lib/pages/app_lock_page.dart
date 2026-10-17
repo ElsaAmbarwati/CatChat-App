@@ -6,6 +6,8 @@
 // - Berhubungan dengan Controller: Mengambil dan mengirim data melalui file Controller yang relevan.
 
 import 'package:flutter/material.dart'; // Mengimpor pustaka Flutter untuk membangun UI.
+import '../services/auth_service.dart'; // Mengimpor layanan otentikasi
+import 'login_page.dart'; // Mengimpor login page untuk navigasi reset PIN
 
 import '../controllers/app_lock_controller.dart'; // Mengimpor controller yang menangani logika penguncian aplikasi.
 
@@ -114,31 +116,30 @@ class _AppLockPageState extends State<AppLockPage>
             left: -40,
             child: _BackgroundGlow(size: 220, color: Color(0xFFF6D2C0)), // Elemen glow latar belakang ketiga.
           ),
-          SafeArea( // Memastikan konten tidak tertutup oleh notch atau status bar.
-            child: LayoutBuilder( // Membangun widget berdasarkan ukuran yang tersedia.
-              builder: (context, constraints) {
-                // Menentukan lebar konten, membatasi maksimal 480 piksel.
-                final contentWidth = constraints.maxWidth < 480.0
-                    ? constraints.maxWidth
-                    : 480.0;
-                return Center( // Memusatkan konten di tengah layar.
-                  child: ConstrainedBox( // Membatasi lebar konten.
-                    constraints: BoxConstraints(maxWidth: contentWidth),
-                    child: Padding( // Menambahkan padding di sekitar konten.
-                      padding: EdgeInsets.all(20),
-                      child: Column( // Mengatur widget secara vertikal.
-                        children: [
-                          _buildBrandHeader(), // Membangun bagian header merek.
-                          SizedBox(height: 14), // Menambahkan jarak vertikal.
-                          Expanded(child: _buildPinCard()), // Membangun bagian kartu PIN, mengambil ruang yang tersedia.
-                        ],
+            SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final contentWidth = constraints.maxWidth < 480.0
+                      ? constraints.maxWidth
+                      : 480.0;
+                  return Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: contentWidth),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                        child: Column(
+                          children: [
+                            _buildBrandHeader(),
+                            SizedBox(height: 10),
+                            Expanded(child: _buildPinCard()),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -151,8 +152,8 @@ class _AppLockPageState extends State<AppLockPage>
     return Row( // Mengatur widget secara horizontal.
       children: [
         Container( // Wadah untuk ikon merek.
-          width: 48,
-          height: 48,
+          width: 38,
+          height: 38,
           decoration: BoxDecoration(
             color: Colors.white, // Warna latar belakang ikon.
             shape: BoxShape.circle, // Membuat ikon berbentuk lingkaran.
@@ -165,9 +166,9 @@ class _AppLockPageState extends State<AppLockPage>
               ),
             ],
           ),
-          child: Icon(Icons.favorite_rounded, color: _accent), // Ikon favorit dengan warna aksen.
+          child: Icon(Icons.favorite_rounded, color: _accent, size: 20), // Ikon favorit dengan warna aksen.
         ),
-        SizedBox(width: 14), // Menambahkan jarak horizontal.
+        SizedBox(width: 10), // Menambahkan jarak horizontal.
         Expanded( // Mengambil ruang yang tersedia.
           child: Column( // Mengatur teks secara vertikal.
             crossAxisAlignment: CrossAxisAlignment.start, // Rata kiri.
@@ -175,21 +176,20 @@ class _AppLockPageState extends State<AppLockPage>
               Text(
                 'Catchat', // Teks nama aplikasi.
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w900,
                   color: _textPrimary,
                 ),
               ),
-              SizedBox(height: 2), // Menambahkan jarak vertikal.
               Text(
                 'Ruang privat, lembut, dan aman', // Teks deskripsi aplikasi.
-                style: TextStyle(fontSize: 13, color: _textSecondary),
+                style: TextStyle(fontSize: 11, color: _textSecondary),
               ),
             ],
           ),
         ),
         Container( // Wadah untuk label "Private".
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Padding horizontal dan vertikal.
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5), // Padding horizontal dan vertikal.
           decoration: BoxDecoration(
             color: Color(0xFFFFF4EF), // Warna latar belakang label.
             borderRadius: BorderRadius.circular(999), // Membuat sudut sangat bulat.
@@ -198,7 +198,7 @@ class _AppLockPageState extends State<AppLockPage>
           child: Text(
             'Private', // Teks label.
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11,
               fontWeight: FontWeight.w700,
               color: Color(0xFF7A4028),
             ),
@@ -210,13 +210,13 @@ class _AppLockPageState extends State<AppLockPage>
 
   // Widget untuk membangun bagian kartu PIN.
   Widget _buildPinCard() {
-    return Container( // Wadah utama kartu PIN.
-      padding: EdgeInsets.symmetric(horizontal: 18, vertical: 20), // Padding di dalam kartu.
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
       decoration: BoxDecoration(
-        color: _card, // Warna latar belakang kartu.
-        borderRadius: BorderRadius.circular(34), // Sudut kartu yang membulat.
-        border: Border.all(color: _border), // Garis batas kartu.
-        boxShadow: [ // Bayangan kartu.
+        color: _card,
+        borderRadius: BorderRadius.circular(28),
+        border: Border.all(color: _border),
+        boxShadow: [
           BoxShadow(
             color: Color(0x1A5D4A45),
             blurRadius: 30,
@@ -224,43 +224,41 @@ class _AppLockPageState extends State<AppLockPage>
           ),
         ],
       ),
-      child: LayoutBuilder( // Membangun widget berdasarkan ukuran yang tersedia.
+      child: LayoutBuilder(
         builder: (context, constraints) {
-          return SingleChildScrollView( // Memungkinkan pengguliran jika konten melebihi layar.
-            child: ConstrainedBox( // Memastikan tinggi minimum untuk konten.
+          return SingleChildScrollView(
+            child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: IntrinsicHeight( // Memastikan tinggi elemen di dalamnya sama.
-                child: Column( // Mengatur widget secara vertikal.
-        children: [
-          SizedBox(height: 4), // Jarak vertikal kecil.
-
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
           // Hero intro
           Container( // Wadah untuk bagian pengantar.
-            padding: EdgeInsets.all(14), // Padding di dalam wadah pengantar.
+            padding: EdgeInsets.all(10), // Padding di dalam wadah pengantar.
             decoration: BoxDecoration(
               color: _innerCard, // Warna latar belakang wadah pengantar.
-              borderRadius: BorderRadius.circular(22), // Sudut membulat.
+              borderRadius: BorderRadius.circular(16), // Sudut membulat.
               border: Border.all(color: _border), // Garis batas.
             ),
             child: Row( // Mengatur ikon dan teks secara horizontal.
               children: [
                 Container( // Wadah untuk ikon.
-                  width: 42,
-                  height: 42,
+                  width: 32,
+                  height: 32,
                   decoration: BoxDecoration(
                     color: Colors.white, // Warna latar belakang ikon.
                     shape: BoxShape.circle, // Bentuk lingkaran.
                     border: Border.all(color: _border), // Garis batas.
                   ),
-                  child: Icon(Icons.pets_rounded, color: _btnText), // Ikon hewan peliharaan.
+                  child: Icon(Icons.pets_rounded, color: _btnText, size: 16), // Ikon hewan peliharaan.
                 ),
-                SizedBox(width: 12), // Jarak horizontal.
+                SizedBox(width: 10), // Jarak horizontal.
                 Expanded( // Mengambil ruang yang tersedia untuk teks.
                   child: Text(
                     'Halo! Masukkan PIN 6 digit untuk membuka ruang pribadimu.', // Teks pengantar.
                     style: TextStyle(
-                      fontSize: 13,
-                      height: 1.45,
+                      fontSize: 11,
+                      height: 1.4,
                       color: _textSecondary,
                     ),
                   ),
@@ -268,12 +266,12 @@ class _AppLockPageState extends State<AppLockPage>
               ],
             ),
           ),
-          SizedBox(height: 16), // Jarak vertikal.
+          SizedBox(height: 10), // Jarak vertikal.
 
           // Lock icon
           Container( // Wadah untuk ikon gembok.
-            width: 56,
-            height: 56,
+            width: 40,
+            height: 40,
             decoration: BoxDecoration(
               color: _controller.success ? Color(0xFF4CAF50) : _innerCard, // Warna berubah jika sukses.
               shape: BoxShape.circle, // Bentuk lingkaran.
@@ -282,28 +280,28 @@ class _AppLockPageState extends State<AppLockPage>
             child: Icon( // Ikon gembok.
               _controller.success ? Icons.lock_open_rounded : Icons.lock_rounded, // Ikon gembok terbuka atau tertutup.
               color: _controller.success ? Colors.white : _btnText, // Warna ikon berubah jika sukses.
-              size: 28,
+              size: 20,
             ),
           ),
-          SizedBox(height: 12), // Jarak vertikal.
+          SizedBox(height: 6), // Jarak vertikal.
 
           Text(
             _controller.success ? 'Berhasil!' : 'Masukkan PIN', // Teks status.
             style: TextStyle(
-              fontSize: 22,
+              fontSize: 17,
               fontWeight: FontWeight.w900,
               color: _textPrimary,
             ),
           ),
-          SizedBox(height: 4), // Jarak vertikal kecil.
+          SizedBox(height: 2), // Jarak vertikal kecil.
           Text(
             'Verifikasi identitasmu dengan PIN 6 digit.', // Teks deskripsi status.
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 11,
               color: _textSecondary,
             ),
           ),
-          SizedBox(height: 16), // Jarak vertikal.
+          SizedBox(height: 10), // Jarak vertikal.
 
           // Status row
           Row( // Mengatur chip status secara horizontal.
@@ -311,14 +309,14 @@ class _AppLockPageState extends State<AppLockPage>
               Expanded( // Mengambil ruang yang tersedia untuk setiap chip.
                 child: _StatusChip(icon: Icons.security_rounded, label: 'Lokal'), // Chip status "Lokal".
               ),
-              SizedBox(width: 10), // Jarak horizontal.
+              SizedBox(width: 8), // Jarak horizontal.
               Expanded(
                 child: _StatusChip(
                   icon: Icons.visibility_off_rounded,
                   label: 'Privat', // Chip status "Privat".
                 ),
               ),
-              SizedBox(width: 10), // Jarak horizontal.
+              SizedBox(width: 8), // Jarak horizontal.
               Expanded(
                 child: _StatusChip(
                   icon: Icons.favorite_rounded,
@@ -327,7 +325,7 @@ class _AppLockPageState extends State<AppLockPage>
               ),
             ],
           ),
-          SizedBox(height: 16), // Jarak vertikal.
+          SizedBox(height: 10), // Jarak vertikal.
 
           // PIN dots
           AnimatedBuilder( // Membangun ulang widget saat animasi berjalan.
@@ -351,9 +349,9 @@ class _AppLockPageState extends State<AppLockPage>
                 return AnimatedContainer( // Animasi untuk perubahan ukuran dan warna titik.
                   duration: Duration(milliseconds: 200),
                   curve: Curves.easeOutCubic,
-                  margin: EdgeInsets.symmetric(horizontal: 8), // Jarak antar titik.
-                  width: filled ? 18 : 14, // Lebar titik berdasarkan status terisi.
-                  height: filled ? 18 : 14, // Tinggi titik berdasarkan status terisi.
+                  margin: EdgeInsets.symmetric(horizontal: 6), // Jarak antar titik.
+                  width: filled ? 14 : 11, // Lebar titik berdasarkan status terisi.
+                  height: filled ? 14 : 11, // Tinggi titik berdasarkan status terisi.
                   decoration: BoxDecoration(
                     color: _controller.success
                         ? Color(0xFF4CAF50) // Warna hijau jika sukses.
@@ -377,69 +375,93 @@ class _AppLockPageState extends State<AppLockPage>
 
           // Menampilkan pesan error jika ada.
           if (_controller.error != null) ...[
-            SizedBox(height: 10), // Jarak vertikal.
+            SizedBox(height: 6), // Jarak vertikal.
             Text(
               _controller.error!, // Tampilkan pesan error dari controller.
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 11,
                 color: _errorColor, // Warna merah untuk error.
                 fontWeight: FontWeight.w600,
               ),
             ),
           ],
 
-          SizedBox(height: 16), // Jarak vertikal.
+            SizedBox(height: 10),
 
-          // Number pad
-          _buildNumPad(), // Membangun bagian keypad angka.
+            // Number pad
+            Expanded(child: _buildNumPad()),
 
-                ],
+            SizedBox(height: 10),
+            Center(
+              child: TextButton(
+                onPressed: () async {
+                  await AuthService.instance.setWantsToResetPin(true);
+                  await AuthService.instance.logout();
+                  if (context.mounted) {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => const LoginPage()),
+                      (route) => false,
+                    );
+                  }
+                },
+                child: Text(
+                  'Lupa PIN? Keluar Akun',
+                  style: TextStyle(
+                    color: Color(0xFF7B6F65),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
               ),
             ),
-          ),
-        );
-      },
+
+          ],
+        ),
+      ),
     ),
   );
-}
+},
+      ),
+    );
+  }
 
   // Widget untuk membangun keypad angka.
   Widget _buildNumPad() {
-    return Column( // Mengatur tombol angka secara vertikal.
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Row( // Baris tombol angka pertama.
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Jarak yang merata antar tombol.
-          children: [_numBtn(1), _numBtn(2), _numBtn(3)], // Tombol 1, 2, 3.
-        ),
-        SizedBox(height: 10), // Jarak vertikal.
-        Row( // Baris tombol angka kedua.
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [_numBtn(4), _numBtn(5), _numBtn(6)], // Tombol 4, 5, 6.
+          children: [_numBtn(1), _numBtn(2), _numBtn(3)],
         ),
-        SizedBox(height: 10), // Jarak vertikal.
-        Row( // Baris tombol angka ketiga.
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [_numBtn(7), _numBtn(8), _numBtn(9)], // Tombol 7, 8, 9.
+          children: [_numBtn(4), _numBtn(5), _numBtn(6)],
         ),
-        SizedBox(height: 10), // Jarak vertikal.
-        Row( // Baris tombol angka terakhir (0 dan backspace).
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [_numBtn(7), _numBtn(8), _numBtn(9)],
+        ),
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(width: 64, height: 64), // Spacer untuk menyeimbangkan tata letak.
-            _numBtn(0), // Tombol 0.
-            SizedBox(width: 64,
-              height: 64,
-              child: Material( // Widget Material untuk efek ripple inkwell.
+            SizedBox(width: 52, height: 52),
+            _numBtn(0),
+            SizedBox(width: 52,
+              height: 52,
+              child: Material(
                 color: Colors.transparent,
-                child: InkWell( // Widget untuk menangani sentuhan.
-                  borderRadius: BorderRadius.circular(36), // Sudut membulat untuk efek ripple.
-                  onTap: _controller.onDelete, // Memanggil fungsi delete pada controller.
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(28),
+                  onTap: _controller.onDelete,
                   child: Center(
                     child: Icon(
-                      Icons.backspace_outlined, // Ikon backspace.
-                      color: _btnText, // Warna ikon.
-                      size: 24,
+                      Icons.backspace_outlined,
+                      color: _btnText,
+                      size: 20,
                     ),
                   ),
                 ),
@@ -453,13 +475,13 @@ class _AppLockPageState extends State<AppLockPage>
 
   // Widget untuk membangun tombol angka individual.
   Widget _numBtn(int digit) {
-    return SizedBox(width: 64, // Ukuran tombol.
-      height: 64,
+    return SizedBox(width: 52, // Ukuran tombol.
+      height: 52,
       child: Material( // Widget Material untuk efek ripple inkwell.
         color: _innerCard, // Warna latar belakang tombol.
-        borderRadius: BorderRadius.circular(36), // Sudut membulat.
+        borderRadius: BorderRadius.circular(28), // Sudut membulat.
         child: InkWell( // Widget untuk menangani sentuhan.
-          borderRadius: BorderRadius.circular(36), // Sudut membulat untuk efek ripple.
+          borderRadius: BorderRadius.circular(28), // Sudut membulat untuk efek ripple.
           onTap: () => _controller.onDigit(digit, () { // Memanggil fungsi onDigit pada controller saat ditekan.
             _controller.verifyPin( // Memanggil fungsi verifikasi PIN setelah digit dimasukkan.
               context: context, // Konteks saat ini.
@@ -471,7 +493,7 @@ class _AppLockPageState extends State<AppLockPage>
             child: Text(
               '$digit', // Menampilkan angka digit.
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: _textPrimary,
               ),
@@ -504,20 +526,20 @@ class _StatusChip extends StatelessWidget {
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
     return Container( // Wadah untuk chip status.
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10), // Padding di dalam chip.
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6), // Padding di dalam chip.
       decoration: BoxDecoration(
         color: Colors.white, // Warna latar belakang chip.
-        borderRadius: BorderRadius.circular(18), // Sudut membulat.
+        borderRadius: BorderRadius.circular(14), // Sudut membulat.
         border: Border.all(color: Color(0xFFE7D8CF)), // Garis batas chip.
       ),
       child: Column( // Mengatur ikon dan teks secara vertikal.
         children: [
-          Icon(icon, size: 18, color: Color(0xFF7B6F65)), // Menampilkan ikon.
-          SizedBox(height: 6), // Jarak vertikal.
+          Icon(icon, size: 14, color: Color(0xFF7B6F65)), // Menampilkan ikon.
+          SizedBox(height: 3), // Jarak vertikal.
           Text(
             label, // Menampilkan label teks.
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 10,
               fontWeight: FontWeight.w700,
               color: Color(0xFF7B6F65),
             ),

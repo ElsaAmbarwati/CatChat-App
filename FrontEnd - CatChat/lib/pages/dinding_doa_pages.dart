@@ -1,3 +1,4 @@
+import '../widgets/constrained_scaffold.dart';
 // Penjelasan file dan tujuannya:
 // Nama file: dinding_doa_pages.dart
 // Deskripsi: File ini mengatur antarmuka pengguna (UI) dan apa yang dilihat pengguna di layar.
@@ -49,12 +50,12 @@ class _DindingDoaPagesState extends State<DindingDoaPages> {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
-    final isWide = MediaQuery.of(context).size.width >= 800;
+    final isWide = MediaQuery.of(context).size.width >= 900;
 
     return ListenableBuilder(
       listenable: _controller,
       builder: (context, _) {
-        return Scaffold(
+        return ConstrainedScaffold(
       backgroundColor: Color(0xFFFAF4F0),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -239,9 +240,13 @@ class _Header extends StatelessWidget {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width >= 900;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 18, horizontal: 18),
+      padding: EdgeInsets.symmetric(
+        vertical: isWide ? 18 : 12, 
+        horizontal: isWide ? 18 : 12
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
@@ -253,13 +258,13 @@ class _Header extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             onTap: onBack,
             child: Container(
-              width: 30,
-              height: 30,
+              width: isWide ? 30 : 24,
+              height: isWide ? 30 : 24,
               decoration: BoxDecoration(
                 color: Color(0xFFF7F1EE),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(Icons.arrow_back, color: Color(0xFF5D4A45)),
+              child: Icon(Icons.arrow_back, size: isWide ? 20 : 16, color: Color(0xFF5D4A45)),
             ),
           ),
           SizedBox(width: 12),
@@ -267,7 +272,7 @@ class _Header extends StatelessWidget {
             child: Text(
               'Dinding Doa',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: isWide ? 24 : 18,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF3F3734),
               ),
@@ -679,3 +684,4 @@ class _Composer extends StatelessWidget {
     );
   }
 }
+

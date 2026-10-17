@@ -1,0 +1,458 @@
+LAPORAN PROYEK UTAMA INFORMATIKA
+Semester Genap TA 2025/2026
+APLIKASI BERBASIS WEB UNTUK DEEPTALK ANONIM DALAM MEMPEROLEH SOLUSI BAGI GENERASI MUDA
+Dosen Pembimbing : Joko Aryanto, S.kom., M.kom
+ELSA AMBARWATI (5230411238)
+PROGRAM STUDI INFOMATIKA
+FAKULTAS SAINS & TEKNOLOGI
+UNIVERSITAS TEKNOLOGI YOGYAKARTA
+2026
+LEMBAR PENGESAHAN
+KATA PENGANTAR
+	Puji syukur kehadirat Allah SWT atas rahmat-Nya sehingga penulis dapat menyelesaikan laporan Proyek Utama Informatika yang berjudul “Aplikasi Berbasis Web untuk Deeptalk Anonim dalam Memperoleh Solusi bagi Generasi Muda”
+	Penulis menyampaikan terima kasih yang sebesar-besarnya kepada pihak-pihak yang telah membantu:
+Dr. Bambang Moertono S., M.M., Akt., CA., selaku Rektor Universitas Teknologi Yogyakarta.
+⁠Dr. Endy Marlina, M.T., selaku Dekan Fakultas Sains & Teknologi UTY.
+⁠Dr. Donny Avianto, M.T., selaku Ketua Program Studi Informatika UTY.
+⁠Muhammad Zakariyah, S.Kom., M.Kom., selaku Dosen Pembimbing Akademik yang senantiasa memberikan arahan dan motivasinya.
+Joko Aryanto, S.Kom., M.Kom. selaku Dosen Pembimbing Mata Kuliah Proyek Utama Informatika yang telah memberikan arahan, ilmu, dan bimbingan yang sangat berharga selama penyusunan laporan ini.
+Orang tua tercinta yang selalu memberikan doa, cinta, semangat, dukungan, dan motivasi selama masa studi.
+Rekan-rekan seperjuangan di Program Studi Informatika atas kebersamaan, diskusi, bantuan, serta masukan yang sangat berarti dalam penyelesaian laporan ini.
+	Peneliti menyadari bahwa dalam pelaksanaan penelitian dan penulisan laporan ini masih terdapat banyak kekurangan. Oleh karena itu, peneliti mengharapkan kritik dan saran dari semua pihak untuk perbaikan diri dan penulisan ke depannya. Semoga laporan ini bermanfaat bagi peneliti sendiri maupun pembaca dalam menambah pengetahuan tentang penelitian yang telah peneliti buat melalui laporan tersebut.
+Yogyakarta, .................... 2026
+Peneliti
+
+
+
+ELSA AMBARWATI
+ABSTRAK
+Tingginya tingkat perundungan siber (cyberbullying), sentimen negatif, dan fenomena fear of missing out (FOMO) di media sosial konvensional telah memicu lonjakan krisis kesehatan mental di kalangan Generasi Z. Jika ruang interaksi digital yang aman tidak segera diciptakan, keengganan generasi muda dalam mengekspresikan emosi akibat takut akan stigma sosial akan semakin memperburuk tingkat stres dan kecemasan mereka. Untuk menyelesaikan permasalahan tersebut, penelitian ini merancang dan membangun aplikasi e-mental health bernama Deeptalk Anonim (CatChat) sebagai ekosistem sosial tertutup (safe space). Langkah penyelesaian dilakukan dengan mengembangkan aplikasi cross-platform menggunakan framework Flutter dan backend Node.js, di mana kolom komentar bebas pada fitur publik ditiadakan secara desain untuk memotong rantai toksisitas. Metode yang digunakan juga meliputi implementasi expressive writing melalui Jurnal Harian yang terintegrasi dengan Mood Tracker, serta penggabungan Application Programming Interface (API) Google Gemini untuk menghadirkan fitur “Teman Curhat AI” yang mampu merespons secara seketika (real-time) berbekal analitik Natural Language Processing (NLP). Berdasarkan hasil pengujian perangkat lunak (Black Box Testing), aplikasi terbukti berhasil memfasilitasi interaksi anonim yang aman, beroperasi secara tanggap dengan manajemen memori yang efisien, serta sukses menjadi media alternatif yang empatik untuk memitigasi risiko gangguan kecemasan akibat lingkungan digital bagi generasi muda.
+Kata Kunci: Kesehatan Mental, Anonimitas, Cyberbullying, Kecerdasan Buatan, Natural Language Processing.
+DAFTAR ISI
+LEMBAR PENGESAHAN	ii
+KATA PENGANTAR	iii
+ABSTRAK	iv
+DAFTAR ISI	v
+DAFTAR GAMBAR	vii
+DAFTAR TABEL	ix
+BAB I PENDAHULUAN	1
+1.1	Latar Belakang	1
+1.2	Rumusan Masalah	3
+1.3	Ruang Lingkup	3
+1.4	Tujuan dan Manfaat	4
+1.4.1	Tujuan Penelitian	4
+1.5	Sistematika Laporan	5
+BAB II TINJAUAN PUSTAKA	7
+2.1	Tinjauan Pustaka	7
+2.2	Teori	11
+2.2.1	Aplikasi Web Dan E-Mental Health	11
+2.2.2	Flutter	11
+2.2.3	Node.js dan REST-API	11
+2.2.4	MySQL	11
+2.2.5	SharedPreferences	12
+2.2.6	Artificial Intelligance (Google Gemini)	12
+2.2.7	Flowchart	12
+2.2.8	UML	13
+BAB III METODE PENELITIAN	17
+3.1	Kerangka Penelitian	17
+3.2	Data Penelitian	18
+3.2.1	Sumber Data	18
+3.2.2	Cara Mendapatkan Data	18
+3.2.3	Waktu Pengumpilan Data	19
+3.3	Arsitektur Model	19
+3.4	Analisis dan Perancangan	20
+3.4.1	Kebutuhan Fungsional	21
+3.4.2	Kebutuhan Non Fungsional	23
+3.4.3	Perancangan Konseptual	24
+3.4.4	Perancangan Fisik	38
+BAB IV PRODUK	49
+4.1	Hasil	49
+4.1.1	Implementasi Database	49
+4.1.2	Implementasi Halaman Antarmuka User	50
+4.2	Pembahasan Hasil	63
+4.3	Pengemabangan Ke Tugas Akhir	64
+BAB V KESIMPULAN	67
+DAFTAR PUSTAKA	68
+DAFTAR GAMBAR
+Gambar 2.1 Simbol Flowchart	13
+Gambar 2.2 Simbol Use Case Diagram	14
+Gambar 2.3 Simbol Activity Diagram	15
+Gambar 2.4  Simbol Sequence Diagram	16
+Gambar 3.1 Kerangka Penelitian	17
+Gambar 3.2 Arsitektur Model Aplikasi Deeptalk Anonim	19
+Gambar 3.3 Flowchart Sistem Utama	24
+Gambar 3.4 Use Case Diagram Sistem	25
+Gambar 3.5 Activity Diagram Register dan Login	27
+Gambar 3.6 Activity Diagram Chat AI	28
+Gambar 3.7 Activity Diagram Chat AI	29
+Gambar 3.8 Activity Diagram Jurnal Harian	30
+Gambar 3.9 Activity Diagram Mood Tracker	31
+Gambar 3.10 Activity Diagram Profil dan Keamanan	32
+Gambar 3.11 Sequence Diagram Register dan Login	33
+Gambar 3.12 Sequence Diagram Dinding Doa	34
+Gambar 3.13 Sequence Diagram Chat AI	35
+Gambar 3.14 Sequence Diagram Jurnal Harian	36
+Gambar 3.15 Sequence Diagram Mood Tracker	37
+Gambar 3.16 Sequence Diagram Manajemen Profil dan Keamanan	38
+Gambar 3.17 Desain Halaman Landing Page	42
+Gambar 3.18 Desain Halaman Register	43
+Gambar 3.19 Desain Halaman Login	43
+Gambar 3.20 Desain Halaman App Lock (PIN)	44
+Gambar 3.21 Desain Halaman Utama (Home)	44
+Gambar 3.22 Desain Halaman Dinding Doa	45
+Gambar 3.23 Desain Halaman Chat AI	45
+Gambar 3.24  Desain Halaman Jurnal	46
+Gambar 3.25  Desain Halaman Tambah Jurnal	46
+Gambar 3.26  Desain Halaman Mood Tracker	47
+Gambar 3.27 Desain Halaman Profil	48
+Gambar 4.1 Struktur Database UsersGambar	50
+Gambar 4.2 Halaman Landing page	50
+Gambar 4.3 Halaman Register User	52
+Gambar 4.4 Halaman Login User	53
+Gambar 4.5 Halaman App Lock (PIN)	54
+Gambar 4.6 Halaman Utama User	55
+Gambar 4.7 Halaman Dinding Doa	57
+Gambar 4.8 Halaman Chat AI	58
+Gambar 4.9 Halaman Jurnal Harian	60
+Gambar 4.10 Halaman Mood Tracker	61
+Gambar 4.11 Halaman Profil User	62
+DAFTAR TABEL
+Tabel 2.1 Sumber Pustaka Primer	8
+Tabel 3.1 Struktur Tabel Users	38
+Tabel 3.2 Struktur Tabel Stories	39
+Tabel 3.3 Struktur Tabel Prayers	40
+Tabel 3.4 Struktur Tabel Journals	41
+Tabel 3.5 Struktur Data SharedOraferences	41
+Tabel 4.1 Pengujian Tabel user	63
+
+PENDAHULUAN
+Latar Belakang
+	Kesehatan mental telah menjadi salah satu isu krusial dalam krisis kesehatan masyarakat global, khususnya yang berdampak pada kelompok. usia remaja dan dewasa muda atau yang sering disebut sebagai Generasi Z. Di era digitalisasi yang sangat masif ini, generasi muda dihadapkan pada dinamika kehidupan yang serba cepat. Tekanan akademik, tuntutan sosial, gaya hidup yang kompetitif, serta tingginya ekspektasi lingkungan seringkali menjadi pemicu utama timbulnya stres, kecemasan (anxiety), hingga depresi. Meskipun kampanye mengenai kesadaran akan pentingnya kesehatan mental telah banyak digalakkan, pada praktiknya, kelompok usia ini masih menghadapi hambatan yang signifikan dalam mencari bantuan secara terbuka. Faktor-faktor seperti tingginya biaya konsultasi psikolog profesional, keterbatasan akses ke fasilitas kesehatan mental, hingga kuatnya stigma negatif masyarakat membuat banyak individu memilih untuk memendam permasalahan mereka. Rasa malu, rasa takut dihakimi, serta kekhawatiran bahwa rahasia pribadi mereka akan terbongkar menjadi alasan utama mengapa generasi muda enggan untuk mengekspresikan perasaan mereka kepada keluarga maupun teman terdekat. Jika tidak ditangani, pemendaman emosi ini berpotensi mengarah pada mekanisme koping yang negatif, termasuk perilaku merusak diri (self-harm).
+	Seiring dengan dengan kemajuan teknologi, pemanfaatan platform digital atau e-mental health mulai diakui sebagai salah satu medium alternatif untuk memfasilitasi komunikasi dan penyaluran emosi. Berbagai penelitian terdahulu menunjukkan bahwa internet memberikan ruang bagi generasi muda untuk mencari dukungan sosial. Sebagai contoh, studi oleh (Lee et al. 2025)mengenai penggunaan layanan webCHAT di Singapura menunjukkan bahwa layanan dukungan berbasis elektronik sangat dicari oleh remaja yang mengalami distres emosional. Di Indonesia, pemanfaatan media sosial konvensional seperti platform X (sebelumnya Twitter) sering dijadikan sarana untuk “Curhat” (Lee et al. 2025), begitu pula dengan eksploitasi fitur obrolan anonim (Anonymous Chat) di aplikasi pesan instan seperti Telegram yang digunakan sebagai media kuratif untuk mengurangi kecemasan (Fahrezi et al. 2025). Konsep anonimitas terbukti memberikan rasa aman secara psikologis, di mana pengguna merasa lebih bebas dan terbuka dalam membagikan masalah personal tanpa takut identitas aslinya diketahui oleh publik.
+	Namun demikian, implementasi fitur obrolan anonim konvensional yang menghubungkan antar sesama pengguna manusia (peer-to-peer) membawa risiko dan kelemahan yang sangat fatal. Tanpa adanya sistem moderasi yang ketat, anonimitas justru sering disalahgunakan sebagai perisai untuk melakukan tindakan tidak bertanggung jawab. Interaksi antar manusia yang tidak terkontrol dalam ruang anonim seringkali memunculkan fenomena perundungan siber (cyberbullying), ujaran kebencian, pelecehan verbal, atau pemberian saran yang tidak relevan dan menghakimi. Bukannya mendapatkan ketenangan dan solusi, pengguna yang sedang berada dalam kondisi psikologis yang rentan justru berisiko mengalami trauma dan perburukan kondisi mental akibat respons negatif dari lawan bicaranya. Keterbatasan waktu dan kesiapan mental lawan bicara (human error) juga membuat sistem ini menjadi tidak stabil dan tidak dapat diandalkan sebagai sistem pendukung (support system) yang konsisten.
+	Untuk mengatasi mengatasi celah permasalahan tersebut dan menciptakan ruang aman (safe space) yang sesungguhnya, diperlukan sebuah inovasi teknologi yang mampu menggantikan peran manusia sebagai pendengar dalam obrolan anonim. Inovasi yang paling relevan untuk diterapkan adalah integrasi Artificial Intelligence (AI) berupa agen cerdas atau chatbot. Berbeda dengan manusia yang rentan terhadap emosi dan bias, AI dapat diprogram untuk bertindak sebagai pendengar yang sepenuhnya objektif, tidak menghakimi (non-judgmental), dan selalu merespons dengan pendekatan yang empatik serta suportif. Kehadiran AI menjamin ketersediaan layanan selama 24 jam penuh tanpa henti, serta secara mutlak mengeliminasi risiko perundungan maupun pelecehan verbal. Selain itu, aspek privasi data (Data Privacy) menjadi prioritas utama; teknologi ini dapat diatur sedemikian rupa sehingga riwayat percakapan yang sangat sensitif tidak disimpan di server terpusat, melainkan disimpan secara lokal di perangkat pengguna. Dengan demikian, privasi pengguna benar-benar terjamin, dan mereka dipastikan hanya menerima interaksi yang konstruktif untuk memfasilitasi deeptalk yang berkualitas.
+	Berdasarkan paparan permasalahan di atas, penelitian ini mengusulkan sebuah perancangan dan pengembangan “Aplikasi Berbasis Web untuk Deeptalk Anonim dalam Memperoleh Solusi bagi Generasi Muda”. Aplikasi ini dirancang secara komprehensif tidak hanya sekadar menyediakan fitur pesan instan (Chat) bersama agen cerdas (AI) untuk mencari solusi permasalahan secara aman, tetapi juga dilengkapi dengan pemantau emosi harian (Mood Tracker), Jurnal Harian (Journals) sebagai media refleksi diri pribadi yang rahasia, serta fitur Dinding Doa sebagai wadah untuk mengekspresikan keluh kesah secara anonim di mana pengguna lain dapat memberikan dukungan moral tanpa adanya kolom komentar yang berisiko toksik. Melalui integrasi fitur-fitur ini, diharapkan generasi muda memiliki sarana digital yang tepat, aman, dan solutif dalam menjaga kestabilan kesehatan mental mereka di era modern.
+Rumusan Masalah
+	Berdasarkan uraian latar belakang masalah di atas, rumusan masalah dalam penelitian ini adalah: Apakah merancang, membangun, dan mengimplementasikan aplikasi komunikasi berbasis web yang menyediakan fitur anonimitas komprehensif (meliputi Dinding Doa, Mood Tracker, Journals, dan Anonymous Chat AI) dapat menciptakan ruang aman (safe space) yang terkontrol bagi generasi muda dalam mengekspresikan diri dan mencari solusi atas permasalahan psikologis mereka?
+Ruang Lingkup
+Untuk menjaga agar penilitian ini tetap berfokus pada tujuan yang telah ditetapkan, maka batasan dan ruang lingkup masalah diuraikan sebagai berikut:
+Sistem ini dirancang pesifik untuk demografi generasi muda (remaja hingga dewasa muda) yang membutuhkan ruang aman dan privat untuk bercerita.
+Aplikasi ini,dibangun menggunakan antarmuka pengguna (frontend) berbasis Flutter Web dan sisi server (backend) berbasis Node.js dengan database MySQL. Aplikasi ini mengintegrasikan Application Programming Interface (API) sebagai otak pemrosesan cerdas utama.
+Fitur fungsional utama meliputi Dinding Doa untuk membagikan cerita secara anonim dengan dukungan emosional tanpa komentar, Mood Tracker untuk memantau suasana hati harian, Journals untuk pencatatan harian privat, serta fitur utama Anonymous Chat AI. Fitur interaksi dua arah berupa deeptalk ini dirancang dengan prinsip Privacy-by-Design, di mana riwayat obrolan AI yang sangat sensitif disandikan dan disimpan di penyimpanan lokal perangkat pengguna (SharedPreferences).
+Keseluruhan interaktif obrolan dibatasi hanya antara pengguna dan sistem AI, tanpa melibatkan koneksi ke pengguna manusia lainnya demi mencegah abuse dan cyberbullying. Aplikasi ini diposisikan sebagai medium dukungan emosional (support system) preventif, bukan instrumen untuk diagnosis klinis atau pengganti perawatan dari tenaga medis profesional (psikolog/psikiater).
+Tujuan dan Manfaat
+Tujuan Penelitian
+	Tujuan dari penelitian dan pengembangan aplikasi ini adalah merancang dan mengembangkan sebuah aplikasi ruang berbagi anonim berbasis web yang mengintegrasikan fitur Dinding Doa, Mood Tracker, Journals, dan dukungan interaktif Anonymous Chat AI untuk membantu generasi muda dalam menyalurkan emosi serta memperoleh solusi atas permasalah merekan secara aman, objektif, dan terhindar dari stigma.
+ 	Kemudian, manfaat dari pengembangan aplikasi ini adalah:
+Menyediakan lternatif safe space digital bagi generasi muda untuk mereduksi beban psikologis, memantau mood, menerima dukungan emosional, serta melakukan deeptalk bersama agen cerdas (AI) tanpa adanya ancaman perundungan maupun peretasan privasi.
+Mengaplikasikan dan menguji efektivitas ilmu rekayasa perangkat lunak (web development) yang diintegrasikan dengan teknologi kecerdasan buatan (AI API) dalam merancang solusi teknologi yang berdampak langsung pada pemecahan masalah sosial dan kesehatan.
+Memberikan kontribusi literatur empiris terkait perancangan desain antarmuka pengguna dan implementasi sistem informasi pada e-mental health, khususnya inovasi dalam memitigasi risiko keamanan dan kenyamanan pada platform anonimitas.
+Sistematika Laporan
+	Dalam penulisan laporan proyek utama infomatika ini, penulis menggunakan sistematika penulisan sebagai berikut:
+BAB I PENDAHULUAN
+	Bab ini menguraikan secara komprehensif latar belakang masalah, identifikasi rumusan masalah, penetapan ruang lingkup penelitian, penjabaran tujuan dan manfaat, serta sistematika penulisan laporan.
+BAB II TINJAUAN PUSTAKA DAN TEORI
+	Bab ini mengkaji secara kritis literatur dan penelitian-penelitian terdahulu yang relevan, serta menjabarkan landasan teori yang melandasi pengembangan perangkat lunak, algoritma AI, dan konsep dasar e-mental health.
+BAB III METODE PENELITIAN
+	Bab ini mendeskripsikan secara rinci alur kerangka penelitian, metodologi pengumpulan data, perancangan arsitektur sistem, hingga tahapan analisis kebutuhan fungsional dan non-fungsional aplikasi.
+BAB IV PRODUK 
+ 	Bab ini mempresentasikan implementasi antarmuka dan backend sistem, evaluasi hasil pengujian, serta memaparkan hasil implementasi penuh fitur Chat AI beserta sistem keamanan privasinya.
+BAB V KESIMPULAN
+	 Bab ini menarik konklusi menyeluruh atas pencapaian desain sistem yang diusulkan, disertai dengan rekomendasi dan saran untuk optimalisasi pengembangan sistem di masa mendatang.
+
+TINJAUAN PUSTAKA
+Tinjauan Pustaka
+	Penelitian mengenai e-mental health, ruang aman digital (safe space), dan aplikasi percakapan anonim telah banyak dikembangkan dalam beberapa tahun terakhir seiring dengan meningkatnya kesadaran akan krisis kesehatan mental di kalangan generasi muda.
+	Penelitian pertama dilakukan oleh (Fahrezi et al. 2025) yang mengkaji pemanfaatan bot @AnonymousChat di platform Telegram sebagai media kuratif dalam konseling kecemasan. Penelitian tersebut menemukan bahwa fitur obrolan anonim sangat digemari oleh remaja dan dewasa muda karena memberikan rasa aman dari penghakiman identitas. Namun, penelitian ini juga mencatat kelemahan signifikan berupa kurangnya kontrol moderasi, di mana anonimitas sering disalahgunakan oleh pengguna manusia lain untuk melakukan cyberbullying atau pelecehan verbal.
+	Penelitian kedua oleh (Rahmanto, Putri, and Millania n.d.) berfokus pada pendekatan desain antarmuka. Mereka menerapkan metode Design Thinking dan mengukur tingkat kegunaan menggunakan System Usability Scale (SUS) pada purwarupa aplikasi bernama “Curhat”. Hasil pengujian tersebut membuktikan bahwa antarmuka yang bersih, navigasi yang intuitif, dan skema warna yang menenangkan sangat krusial dalam membangun kepercayaan pengguna (user trust) terhadap platform kesehatan mental.
+	Penelitian ketiga oleh (Adnandi, Andriyani, and Widiyanti 2025) mengusulkan inovasi aplikasi kesehatan mental bernama “Mindnest”. Mereka memperkenalkan konsep virtual healing untuk Generasi Z. Penelitian ini menyoroti urgensi penyediaan ruang pelarian digital yang mampu mereduksi stres melalui pendekatan gamifikasi ringan dan pencatatan suasana hati, meski implementasinya masih berupa rancangan teoretis.
+	Penelitian keempat berskala internasional dilakukan oleh (Lee et al. 2025) yang mengeksplorasi layanan “webCHAT” di Singapura. Layanan ini menghubungkan pemuda yang mengalami distres dengan profesional kesehatan mental melalui medium chat berbasis web. Mereka menyimpulkan bahwa banyak remaja yang awalnya enggan melakukan konseling tatap muka menjadi jauh lebih terbuka ketika difasilitasi melalui obrolan teks anonim, karena interaksi teks dirasa kurang mengintimidasi.
+	Penelitian kelima oleh (Thorn et al. 2023) menginvestigasi motivasi dan persepsi kaum muda terkait bahaya serta manfaat dari komunikasi online mengenai self-harn. Melalui studi wawancara pada forim online, mereka menyimpulkan bahwa komunikasi anonim seringkali memberikan validasi emosional yang sangat dibutuhkan (manfaat), namun di sisi lain, paparan cerita ekstrem tanpa moderasi dapat memicu efek trigger (bahaya) bagi pengguna lain yang sedang rentan.
+	Penelitian keenam oleh (Aurellia et al. 2024) menggunakan metode fenomenologi untuk meneliti pengalaman pengguna X (sebelumnya Twitter) sebagai platform curhat. Penelitian tersebut mengungkap fenomena second account (akun anonim/alter) yang banyak dibuat oleh Gen Z khusus untuk mencurahkan keluh kesah. Meskipun memberikan kelegaan sesaat, platform X dinilai berisiko tinggi karena sifat algoritma publiknya yang rawan viral dan kolom komentarnya yang seringkali dipenuhi sentimen negatif (toxic).
+Tabel 2.1 Sumber Pustaka Primer
+	Berdasarkan kajian pustaka dari enam penelitian terdahulu yang diringkas pada Tabel 2.1, pengembangan aplikasi dukungan kesehatan mental telah dilakukan dengan berbagai pendekatan, baik melalui pemanfaatan platform pihak ketiga seperti Telegram dan X, maupun perancangan antarmuka mandiri.
+	Sebagai pengembangan lebih lanjut, penelitian ketujuh yaitu CatChat menawarkan pendekatan berbeda dengan mengembangkan aplikasi berbasis web menggunakan Flutter yang terhubung ke REST-API. Aplikasi ini tidak menghubungkan manusia dengan manusia layaknya Telegram, melainkan memanfaatkan kecerdasan buatan (Google Gemini AI) untuk fitur Anonymous Chat, sehingga memungkinkan pemberian dukungan emosional yang objektif dan bebas cyberbullying. Berbeda dengan penelitian sebelumnya yang mengandalkan interaksi antar pengguna secara manual atau yang hanya sebatas desain, CatChat fokus pada implementasi safe space digital yang komprehensif, mencakup pemantauan emosi (Mood Tracker), pencatatan harian privat (Journals), serta obrolan interaktif yang aman dan langsung dapat diakses melalui peramban web tanpa harus mengunduh file besar.
+Teori 
+Aplikasi Web Dan E-Mental Health
+	Kesehatan mental mencakup kesejahteraan emosional, psikologis, dan sosial manusia. E-Mental health adalah pemanfaatan teknologi informasi mutakhir untuk memberikan dukungan psikologis (Lee et al. 2025). Aplikasi berbasis web menjadi salah satu implementasi utama dalam e-mental health karena memungkinkan individu mengakses ruang curhat anonim dengan mudah melalui peramban web (browser) tanpa perlu mengunduh file instalasi yang membebani penyimpanan perangkat.
+Flutter
+	Flutter adalah sebuah framework open-source yang dikembangkan oleh Google untuk membangun antarmuka pengguna (UI) secara lintas platform (cross-platform) hanya dari satu basis kode. Dalam penelitian ini, Flutter digunakan untuk merancang antarmuka (frontend) aplikasi yang responsif, interaktif, dan dapat di-compile menjadi aplikasi berbasis web yang berkinerja tinggi.
+Node.js dan REST-API
+	Node.js adalah lingkungan eksekusi (runtime environment) untuk bahasa pemrograman JavaScript yang berjalan di sisi server (backend). Node.js dipilih karena kemampuannya menangani banyak koneksi secara bersamaan (asynchronous) dengan performa tinggi. Pada sistem ini, Node.js digunakan untuk membangun arsitektur Representational State Transfer Application Programming Interface (REST-API). REST-API berfungsi sebagai jembatan komunikasi data dalam format JSON antara antarmuka pengguna (Flutter) dengan database maupun layanan AI pihak ketiga.
+MySQL
+	MySQL adalah sistem manajemen basis data relasional (Relational Database Management System / RDBMS) sumber terbuka yang menggunakan perintah SQL (Structured Query Language). Pada sistem ini, MySQL bertindak sebagai ruang penyimpanan terpusat di server untuk menyimpan data kredensial akun pengguna secara aman (dengan hashing), data cerita di Dinding Doa, serta entri Jurnal Harian.
+SharedPreferences
+	SharedPreferences dalah mekanisme penyimpanan data persisten berskala kecil di sisi klien (perangkat pengguna) yang beroperasi dengan prinsip key-value pair (kunci-nilai). Untuk mengimplementasikan konsep Privacy-by-Design, riwayat obrolan AI yang sifatnya sangat privat tidak disimpan di server MySQL, melainkan disimpan secara lokal menggunakan SharedPreferences sehingga hanya pemilik perangkat yang bisa mengaksesnya
+Artificial Intelligance (Google Gemini)
+	Artificial intelligance (AI) adalah simulasi kecerdasan manusia oleh sistem komputer. Aplikasi ini mengintegrasikan Application Programming Interface (API) dari Google Gemini, sebuah model bahasa besar (Large Language Model / LLM) mutakhir buatan Google. Gemini difungsikan sebagai agen cerdas (chatbot) yang bertugas menganalisis curhatan pengguna melalui Natural Language Processing (NLP) dan memberikan respons umpan balik yang empatik, suportif, serta non-judgmental.
+Flowchart
+	Flowchart (diagram alir) adalah representasi grafis dari langkah-langkah dan keputusan yang diperlukan untuk memecahkan suatu masalah atau menjalankan suatu proses. Diagram ini menggunakan berbagai bentuk geometris standar untuk menunjukkan jenis operasi atau keputusan, dan dihubungkan oleh panah untuk menunjukkan arah aliran logika sistem. Dalam perancangan sistem, flowchart sangat penting untuk memvisualisasikan algoritma program dan alur pengguna (user flow) secara keseluruhan sehingga mudah dipahami oleh pengembang maupun analis (Zein 2023). Simbol-simbol yang umum digunakan dalam pembuatan flowchart ditunjukkan pada Gambar 2.1 berikut:
+Gambar 2.1 Simbol Flowchart
+UML
+	Peneliti menggunakan UML (Unified Modelling Language) untuk merancang sebuah sistem yang akan di buat. Diagram UML yang akan di buat meliputi:
+Use Case Diagram
+	Use case diagram digunakan untuk memetakan perilaku sistem informasi yang akan dibangun, dengan menunjukkan fungsi-fungsi yang tersedia dalam sistem dan pihak-pihak yang memiliki hak untuk mengaksesnya (Andriana dkk., 2021). Diagram ini sangat penting untuk mendefinisikan aktor, baik itu pengguna maupun sistem lain, serta batasan interaksi yang mereka miliki terhadap sistem. Melalui diagram ini, perancang sistem dapat mengomunikasikan rancangannya secara visual dengan bahasa yang lebih sederhana dan non-teknis. Diagram ini tidak memfokuskan pada bagaimana (how) sistem beroperasi di belakang layar secara mendetail, melainkan lebih menekankan pada apa (what) yang dapat dilakukan oleh sistem tersebut dari sudut pandang penggunanya. Simbol-simbol yang umum digunakan dalam use case diagram ditunjukkan pada Gambar 2.2 berikut:
+Gambar 2.2 Simbol Use Case Diagram
+Activity Diagram
+	Activity Diagram adalah salah satu jenis diagram UML yang digunakan untuk memetakan aktivitas dalam suatu sistem, mulai dari awal hingga akhir, termasuk kondisi keputusan yang mungkin terjadi. Diagram ini menggambarkan alur proses secara umum tanpa memvisualisasikan perilaku internal sistem atau interaksi antar subsistem, namun dapat menunjukkan jalur kegiatan yang saling berkesinambungan (Hartono 2023).
+	Kemudian menurut (Zein 2023), Activity Diagram adalah diagram yang digunakan untuk memodelkan alur kerja dalam sebuah proses, seperti prosedur bisnis atau alur kerja pada sistem perangkat lunak. Diagram ini membantu menggambarkan tahapan aktivitas secara jelas. Simbol-simbol yang umum digunakan dalam activity diagram ditunjukkan pada Gambar 2.3 berikut:
+Gambar 2.3 Simbol Activity Diagram
+Sequence Diagram
+	sequence diagram adalah salah satu jenis diagram interaksi pada UML yang memodelkan komunikasi antar objek di dalam sistem berdasarkan urutan waktu. Diagram ini menyoroti detail pertukaran pesan yang terjadi di latar belakang (behind the scenes) saat suatu fungsi (use case) dijalankan. Sequence diagram digambarkan dengan sumbu vertikal yang merepresentasikan waktu (lifeline) dan sumbu horizontal yang merepresentasikan objek-objek yang berpartisipasi, seperti aktor, antarmuka (boundary), pengendali (control), hingga basis data (entity). Simbol – simbol yang umum digunakan dalam sequence diagram pada gambar 2.4 berikut:
+Gambar 2.4  Simbol Sequence Diagram
+
+METODE PENELITIAN
+Kerangka Penelitian
+Kerangka penelitian ini menggambarkan alur penelitian secara sistematis dari awal hingga akhir. Penelitian dimulai dari identifikasi masalah, dilanjutkan dengan pengumpulan data, perancangan sistem, implementasi, pengujian, hingga penarikan kesimpulan. Berikut adalah diagram kerangka penelitian yang dilakukan:
+Gambar 3.1 Kerangka Penelitian
+	Pada Gambar 3.1 ditunjukkan kerangka penelitian yang menjadi panduan pelaksanaan proses penelitian secara efektif. Penelitian ini diawali dengan mengidentifikasi kondisi awal, yaitu adanya kebutuhan generasi muda akan ruang curhat digital yang aman, namun platform chat anonim yang tersedia saat ini masih rentan terhadap perundungan siber (cyberbullying). Dari kondisi tersebut diidentifikasi bahwa dibutuhkan sebuah aplikasi berbasis web yang lebih aman, ringan, dan mendukung percakapan anonim dengan pemanfaatan teknologi kecerdasan buatan (AI).
+ 	Berdasarkan kondisi tersebut, diajukan sebuah usulan model berupa pengembangan aplikasi Deeptalk Anonim berbasis web yang terintegrasi dengan AI sebagai pendengar (AI Listener). Selain fitur obrolan utama, aplikasi juga ditambahkan fitur pendukung berupa Jurnal Pribadi, Dinding Doa, dan Mood Tracker sebagai media emotional support.
+	Usulan tersebut direalisasikan melalui dua tahap proses pengembangan. Tahap I berfokus pada mendesain dan mengembangkan antarmuka pengguna (UI/UX) serta arsitektur aplikasi menggunakan framework Flutter Web. Tahap II berfokus pada mengintegrasikan API Chatbot AI sebagai mitra percakapan, menyiapkan mekanisme penyimpanan lokal (LocalStorage) menggunakan SharedPreferences, serta melakukan pengujian sistem secara menyeluruh. Sebagai kondisi akhir, diharapkan terciptanya sebuah aplikasi Deeptalk Anonim berbasis web yang ringan, aman, fungsional, dan mendukung kesejahteraan mental bagi generasi muda.
+Data Penelitian
+Sumber Data
+	Dalam penelitian ini, data diambil dari dua sumber utama. Pertama, data sekunder yang diambil berdasarkan kajian literatur dari jurnal-jurnal ilmiah terkait e-mental health, psikologi remaja, dan pemanfaatan teknologi obrolan anonim. Data sekunder ini digunakan sebagai landasan teori dan acuan perbandingan dalam menyusun tinjauan pustaka. Kedua, data primer yang diperoleh melalui pengamatan langsung (observasi) terhadap jalannya fungsi sistem ketika pengguna berinteraksi dengan antarmuka aplikasi, seperti saat mengunggah cerita ke Dinding Doa, menerima balasan dari AI, mencatat Jurnal, atau memilih status emosi pada Mood Tracker.
+Cara Mendapatkan Data
+	Pengambilan data dilakukan melalui dua cara. Pertama, studi pustaka, yaitu mengumpulkan referensi berupa jurnal, dan dokumentasi teknis API terkait framework yang digunakan. Kedua, simulasi dan pengujian sistem secara langsung menggunakan metode Black Box Testing. Pengujian ini bertujuan untuk mengamati apakah seluruh fitur aplikasi berjalan sesuai skenario yang direncanakan, khususnya terkait kelancaran pertukaran data (request dan response) antara frontend (Flutter), backend (Node.js), basis data MySQL, dan mekanisme penyimpanan lokal (SharedPreferences).
+Waktu Pengumpilan Data
+	Pengumpulan data dalam penelitian ini dilakukan secara bertahap sepanjang rentang waktu pengerjaan Proyek Utama Informatika (PUI). Proses dimulai dari tahap analisis awal dan studi, dilanjutkan dengan pengumpulan data primer melalui simulasi dan pengujian pada saat tahap implementasi, hingga seluruh modul aplikasi, termasuk integrasi modul Chat dengan API AI, selesai dikembangkan secara penuh dan data yang diperoleh dianggap representatif.
+Arsitektur Model
+	Arsitektur sistem menunjukkan alur interaksi antara pengguna (user), antarmuka klien (frontend), Application Programming Interface (API) di sisi server (backend), basis data MySQL, serta mekanisme penyimpanan lokal.
+Gambar 3.2 Arsitektur Model Aplikasi Deeptalk Anonim
+	Pada Gambar 3.2 ditunjukkan arsitektur model sistem secara keseluruhan. Proses dimulai saat seorang pengguna (User) mengakses aplikasi melalui peramban web (browser) di perangkatnya. Permintaan pengguna diterima oleh komponen Frontend yang dibangun menggunakan framework Flutter dan berjalan di sisi klien.
+	Di sisi klien, aplikasi memanfaatkan SharedPreferences yang berfungsi sebagaimana LocalStorage pada peramban web. Mekanisme ini digunakan untuk menyimpan data sesi login (token JWT dan status autentikasi), hash PIN keamanan (App Lock), serta riwayat percakapan Chat AI secara lokal di perangkat pengguna. Dengan demikian, data-data sesi dan riwayat chat tidak perlu selalu diambil dari server, sehingga aplikasi terasa lebih ringan dan responsif.
+	Selanjutnya, frontend mengirimkan permintaan (request) dalam format JSON beserta token JWT (untuk autentikasi) kepada komponen Backend yang dibangun menggunakan Node.js dengan framework Express.js. Backend berperan sebagai perantara sentral yang menangani seluruh logika bisnis aplikasi. Saat pengguna mendaftar, masuk (login), mengunggah cerita ke Dinding Doa, menekan tombol “Doa”, atau menyimpan Jurnal beserta Mood, backend akan menyalurkan data tersebut ke basis data MySQL untuk disimpan secara persisten.
+	Khusus untuk fitur Anonymous Chat, antarmuka (frontend) telah diintegrasikan secara langsung dengan layanan API Google Gemini AI melalui perantara backend. Setiap pesan teks dari pengguna diproses menggunakan Natural Language Processing (NLP) untuk menghasilkan respons yang sangat natural, empatik, dan suportif layaknya percakapan nyata.
+Analisis dan Perancangan
+	Setelah mendapatkan data dan memiliki arsitektur model, langkah selanjutnya adalah melakukan analisis kebutuhan dan perancangan sistem. Analisis dilakukan untuk mengidentifikasi apa saja yang dibutuhkan oleh sistem agar dapat berfungsi dengan baik, sedangkan perancangan bertujuan untuk memodelkan alur kerja dan struktur sistem sebelum memasuki tahap implementasi kode.
+Kebutuhan Fungsional
+	Kebutuhan fungsional merupakan jenis kebutuhan yang mencakup proses-proses yang harus dilakukan oleh sistem untuk mencapai tujuan. Kebutuhan fungsional dijabarkan dalam bentuk masukan (input), proses (process), dan luaran (output) sebagai berikut:
+Kebutuhan Masukan (Input)
+Pengguna dapat memasukkan data email, nama samaran (username), dan kata sandi saat mendaftar (register). Tersedia juga tombol pembuat nama samaran acak secara otomatis.
+Pengguna dapat memasukkan email dan kata sandi saat masuk (login).
+Pengguna dapat membuat dan memasukkan PIN 6 digit pada fitur App Lock untuk mengunci akses ke aplikasi.
+Pengguna dapat mengetik teks cerita atau harapan pada fitur Dinding Doa, serta mengatur status cerita (Publik atau Privat).
+Sistem memproses teks pesan dari pengguna melalui integrasi API Google Gemini untuk menghasilkan respons AI yang sangat empatik dan natural, lalu menyimpan riwayat percakapan ke SharedPreferences (LokalStorage).
+Pengguna dapat memasukkan judul dan isi catatan naratif pada fitur Jurnal Harian, sekaligus memilih status mood saat menulis, yang nantinya akan digunakan untuk menentukan mood tracker.
+Pengguna dapat melihat status emosi (Senang, Sedih, Capek, Biasa) pada fitur Mood Tracker, berdasarkan jurnal yang ditulis.
+Kebutuhan Proses (Process)
+Sistem memvalidasi format masukan dan memverifikasi kredensial pengguna dengan basis data MySQL saat proses register dan login. Sistem menggunakan token JWT (JSON Web Token) untuk mengelola sesi autentikasi.
+Sistem memverifikasi PIN keamanan menggunakan fungsi hash SHA-256 saat pengguna membuka aplikasi yang terkunci (App Lock). Verifikasi dilakukan melalui backend, dengan fallback ke data lokal (SharedPreferences) jika tidak ada koneksi.
+Sistem memproses teks cerita yang diunggah pengguna untuk ditampilkan secara anonim (tanpa identitas) di halaman Dinding Doa. Sistem juga menyediakan opsi untuk mengedit, menghapus, atau mengubah status privasi cerita.
+Sistem mencatat klik tombol “Doa” dari pengguna lain ke dalam tabel terpisah (‘prayers’) di basis data, memastikan satu pengguna hanya dapat memberikan satu doa per cerita (unique constraint).
+Sistem memproses teks pesan dari pengguna menggunakan logika pencocokan kata kunci untuk menghasilkan respons empatik dari AI, dan menyimpan riwayat percakapan ke SharedPreferences (LokalStorage).
+Sistem menyimpan data Jurnal beserta status mood ke basis data MySQL melalui backend, dan mengolah data mood menjadi statistik mingguan dan bulanan untuk divisualisasikan di Mood Tracker.
+Kebutuhan Luaran (Output)
+Tampilan notifikasi keberhasilan atau kegagalan saat proses register dan login, termasuk pesan error spesifik (misalnya “Email sudah terdaftar” atau “Tidak dapat terhubung ke server”).
+Tampilan beranda (feed) yang memunculkan daftar cerita terbaru di halaman Dinding Doa, lengkap dengan label “Anonim”, jumlah doa yang diterima, dan tombol interaksi “Doa”.
+Tampilan gelembung percakapan (chat bubble) berisi balasan teks yang empatik dan suportif dari AI, dengan indikator “sedang mengetik” saat AI memproses respons.
+Tampilan rekap historis catatan pada halaman Jurnal yang tersimpan di server.
+Tampilan grafik statistik Mood Tracker dalam dua jenis: grafik mingguan (7 hari terakhir) dan grafik bulanan (6 bulan terakhir), beserta informasi mood dominan dan skor rata-rata.
+Tampilan pesan error kepada pengguna apabila terdapat kegagalan koneksi ke server (“Tidak dapat terhubung ke server. Pastikan internet Anda aktif.”).
+Kebutuhan Non Fungsional
+	Kebutuhan non fungsional merupakan kebutuhan pendukung yang tidak berhubungan langsung dengan fungsionalitas sistem, tetapi memengaruhi kinerja dan kenyamanan penggunaan.
+Kebutuhan Perangkat Lunak (Software)
+Sistem Operasi: Windows 10/11 64-bit atau macOS (sebagai environment pengembangan).
+Code Editor: Visual Studio Code atau Android Studio.
+Framework Frontend: Flutter SDK versi 3.10 atau lebih baru (berbasis bahasa pemrograman Dart).
+Runtime Backend: Node.js dengan framework Express.js (berbasis bahasa pemrograman JavaScript).
+Database: MySQL dengan charset ‘utf8mb4’ dan collation ‘utf8mb4_unicode_ci’.
+Package pendukung Flutter: ‘shared_preferences’ (penyimpanan lokal), ‘http’ (komunikasi API), ‘fl_chart’ (visualisasi grafik Mood Tracker) ‘crypto’ (enkripsi PIN dengan SHA-256).
+Desain Antarmuka: Figma.
+Web Browser: Google Chrome, Mozilla Firefox, atau Microsoft Edge versi terbaru (sebagai perangkat akses aplikasi oleh pengguna).
+Kebutuhan Pereangkat Lunak (Hardware)
+Laptop atau PC pengembang dengan prosesor minimal Intel Core i5 generasi ke-8 atau AMD Ryzen 5 3000 Series.
+RAM minimal 8 GB.
+Penyimpanan SSD minimal 256 GB.
+Koneksi internet stabil untuk akses API dan pengujian aplikasi.
+Perangkat klien (pengguna) membutuhkan perangkat dengan akses ke web browser modern dan koneksi internet.
+Perancangan Konseptual
+	Dalam tahap perancangan konseptual, dilakukan pemodelan visual terhadap alur kerja sistem. Pada penelitian ini, penulis menggunakan Use Case Diagram untuk menggambarkan interaksi aktor dengan sistem, serta Activity Diagram untuk menggambarkan alur aktivitas pada fitur-fitur utama.
+Flowchart
+Berikut adalah Flowchart yang menjelaskan alur proses dari sistem ini:
+Gambar 3.3 Flowchart Sistem Utama
+	Pada Gambar 3.3 ditunjukkan flowchart sistem utama yang memetakan alur logika pengguna semenjak aplikasi dibuka. Alur dimulai dari proses autentikasi, di mana pengguna yang belum memiliki akun akan diarahkan untuk mendaftar (register), sedangkan pengguna lama dapat langsung masuk (login). Setelah divalidasi, pengguna diwajibkan memasukkan App Lock PIN sebagai lapisan keamanan ganda. Jika berhasil, pengguna akan diarahkan ke halaman utama (home) dan dapat memilih berbagai menu fungsionalitas, seperti membaca atau menulis di Dinding Doa, mengisi Jurnal Harian yang terintegrasi dengan Mood Tracker, melakukan konsultasi anonim dengan Teman Curhat AI, maupun mengatur profil avatar. Siklus diakhiri ketika pengguna melakukan logout dari sesi aplikasi.
+UML (Unified Modelling Language)
+Use Case Diagram
+	Dalam tahap perancangan konseptual, dilakukan pemodelan visual terhadap alur kerja sistem. Pada penelitian ini, penulis menggunakan Use Case Diagram untuk menggambarkan interaksi aktor dengan sistem, serta Activity Diagram untuk menggambarkan alur aktivitas pada fitur-fitur utama.
+Gambar 3.4 Use Case Diagram Sistem
+	Pada Gambar 3.4 ditunjukkan use case diagram dari sistem yang dibangun. Terdapat satu aktor utama yaitu User (Pengguna) yang merepresentasikan generasi muda. Aktor ini memiliki sembilan hak akses fungsional di dalam sistem. Pertama, User dapat melakukan Register / Login untuk membuat akun baru atau masuk ke akun yang sudah ada menggunakan email dan kata sandi. Kedua, User dapat Mengatur App Lock (PIN) sebagai lapisan keamanan tambahan. Ketiga, User dapat Membaca dan Menulis di Dinding Doa, yaitu melihat cerita anonim dari pengguna lain sekaligus mengunggah ceritanya sendiri secara tanpa nama, dengan opsi mengatur status Publik atau Privat. Keempat, User dapat Memberikan Doa pada Cerita dari pengguna lain sebagai bentuk dukungan moral. Kelima, User dapat Melakukan Chat AI untuk melakukan percakapan eksklusif (deeptalk) bersama kecerdasan buatan. Keenam, User dapat Menulis Jurnal Pribadi sebagai media refleksi diri yang bersifat rahasia, disertai pemilihan status mood saat menulis. Ketujuh, User dapat Melihat Mood Tracker untuk statistik dan grafik perkembangan emosi hariannya. Kedelapan, User dapat Mengelola Profil termasuk mengubah avatar dan pengaturan akun. Kesembilan, User dapat melakukan Logout untuk keluar dari sesi aplikasi secara aman, yang akan menghapus data sesi dan token dari SharedPreferences.
+Activity Diagram
+	Activity Diagram adalah pemodelan yang digunakan untuk memetakan alur aktivitas dalam sebuah sistem, mulai dari awal hingga akhir, termasuk keputusan yang terjadi. Diagram ini membantu menggambarkan proses kerja, seperti prosedur bisnis atau alur sistem perangkat lunak, dengan jelas dan terstruktur.
+Activity Diagram Register dan Login
+	Pada gambar 3.5 dijelaskan alur aktivitas proses autentikasi pada aplikasi. Proses dimulai ketika User memasukkan data berupa alamat email, nama samaran (username), dan kata sandi ke dalam bidang input yang tersedia. Sistem melakukan validasi format masukan. Apabila format tidak sesuai, sistem menampilkan pesan error dan meminta pengguna memperbaiki inputan. Apabila format sudah sesuai, data dikirimkan ke backend API melalui protokol HTTP. Backend kemudian melakukan pengecekan ke basis data MySQL. Jika alamat email sudah terdaftar, sistem menampilkan pesan “Email sudah terdaftar”. Jika berhasil, backend mengembalikan token JWT yang kemudian disimpan ke SharedPreferences (LocalStorage) di sisi klien bersama dengan status sesi login. Setelah itu, sistem mengecek apakah pengguna memiliki PIN App Lock. Jika ya, pengguna harus memasukkan PIN yang diverifikasi menggunakan hash SHA-256 terlebih dahulu sebelum dapat masuk ke Halaman Utama. Jika tidak, pengguna langsung diarahkan ke Halaman Utama.
+Gambar 3.5 Activity Diagram Register dan Login
+Activity Diagram Dinding Doa
+	Pada Gambar 3.6 ditunjukkan alur aktivitas fitur Dinding Doa. Ketika pengguna membuka halaman ini, sistem memuat daftar cerita dari backend API dan menampilkannya dalam dua panel: “Cerita Anonim” (cerita publik dari seluruh pengguna) dan “Cerita Saya” (cerita milik pengguna yang sedang login). Setiap cerita anonim ditampilkan dalam bentuk kartu berisi avatar anonim, teks cerita, label “Anonim”, dan tombol “Doa”. Pengguna memiliki tiga pilihan aksi. Pilihan pertama, memberikan dukungan moral dengan mengeklik tombol “Doa”. Data doa disimpan ke tabel ‘prayers’ di MySQL dengan mekanisme unique constraint (satu pengguna hanya bisa mendoakan satu cerita satu kali). Pilihan kedua, menulis cerita baru melalui composer di bagian bawah halaman. Cerita yang dikirim disimpan ke tabel ‘stories’ di MySQL dengan status anonim. Pilihan ketiga, pada panel “Cerita Saya”, pengguna dapat mengelola ceritanya melalui menu popup yang menyediakan opsi Edit Cerita, Ubah Privasi (Publik/Privat), dan Hapus Cerita.
+Gambar 3.6 Activity Diagram Chat AI
+Activity Diagram Chat AI
+	Pada gambar 3.7 ditunjukkan alur aktivitas fitur Chat AI. Fitur ini memungkinkan pengguna untuk berinteraksi secara langsung dengan agen cerdas (Google Gemini AI) yang diprogram khusus untuk mendengarkan keluh kesah secara empatik. Alur dimulai ketika pengguna membuka halaman Chat AI dan sistem memuat riwayat obrolan terdahulu (jika ada) dari SharedPreferences. Ketika pengguna mengetikkan pesan, sistem akan memvalidasi input lalu meneruskannya ke layanan backend API. Jika pemrosesan berhasil (status 200 OK), sistem akan menerima dan menampilkan respons balasan dari AI ke layar pengguna sekaligus menyimpannya secara lokal. Namun jika terjadi kesalahan (misalnya 400 Bad Request atau 500 Server Error), sistem akan memunculkan pesan peringatan. Percakapan ini dapat terus berlanjut (dua arah) hingga pengguna memutuskan untuk menekan tombol kembali dan keluar dari halaman obrolan.
+Gambar 3.7 Activity Diagram Chat AI
+Activity Diagram Jurnal Pribadi
+	Pada gambar 3.8 dijelaskan alur aktivitas fitur pencatatan jurnal harian. Saat pengguna membuka halaman jurnal, sistem memuat riwayat jurnal dari database. Pengguna memiliki opsi untuk melakukan filter pencarian berdasarkan rentang waktu atau kata kunci. Saat pengguna memilih untuk menulis jurnal baru, pengguna memasukkan judul dan isi naratif, serta diwajibkan untuk memilih ikon status mood yang mendeskripsikan perasaannya saat itu. Data jurnal beserta mood ini kemudian dikirim dan disimpan ke tabel ‘journals’ di MySQL. Pengguna juga dapat memilih opsi untuk mengedit atau menghapus entri jurnal lama, yang kemudian akan diperbarui di sistem database.
+Gambar 3.8 Activity Diagram Jurnal Harian
+Activity Diagram Mood Tracker
+	Pada Gambar 3.9 dijelaskan alur aktivitas pada fitur Mood Tracker. Fitur ini berfungsi secara otomatis tanpa memerlukan input manual di halamannya. Saat pengguna membuka halaman Mood Tracker dari navigasi, sistem mengirim request ke API untuk mengambil ringkasan emosi. Database lalu menghitung statistik dari riwayat jurnal pengguna. Setelah sistem menerima data kalkulasi, ia akan mengekstrak skor rata-rata, sentimen mood dominan, serta memproses data untuk ditampilkan ke dalam grafik fluktuasi emosi mingguan dan bulanan. Pengguna cukup melihat hasil statistik ini sebagai refleksi kondisinya.
+Gambar 3.9 Activity Diagram Mood Tracker
+Activity Diagram Profil dan Keamanan Akun
+	Pada Gambar 3.10 ditunjukkan alur aktivitas manajemen profil dan keamanan akun. Pengguna memiliki opsi untuk mengganti PIN App Lock dengan memasukkan dan mengonfirmasi 6 digit angka, di mana hash dari PIN tersebut akan disimpan ke SharedPreferences lokal dan ke database. Untuk manajemen sesi, sistem menyediakan dua alur yang sangat berbeda. Jika pengguna memilih fitur Logout, sistem hanya akan menghapus token sesi di SharedPreferences melalui API, sehingga data utama di server tetap utuh dan pengguna dapat masuk (login) kembali nanti. Sebaliknya, jika pengguna memilih opsi Hapus Akun (Delete Account), sistem akan menghapus seluruh data pengguna dari basis data MySQL server secara permanen, sekaligus membersihkan seluruh riwayat lokal. Fitur ini dirancang untuk memberikan kontrol privasi yang mutlak kepada pengguna anonim.
+Gambar 3.10 Activity Diagram Profil dan Keamanan
+Sequence Diagram
+	Sequence diagram digunakan untuk memodelkan alur interaksi dan komunikasi pesan antar objek di dalam sistem berdasarkan urutan waktu. Jika activity diagram berfokus pada alur kerja dari sudut pandang pengguna, maka sequence diagram menyoroti detail teknis pertukaran data yang terjadi di belakang layar (behind the scenes). Pada penelitian ini, sequence diagram secara khusus dirancang untuk memvisualisasikan bagaimana antarmuka klien (Frontend Flutter) berinteraksi melakukan pemanggilan antarmuka pemrograman aplikasi (REST-API) menuju peladen (Backend Node.js), serta bagaimana peladen mengeksekusi kueri ke basis data MySQL maupun ke layanan pihak ketiga (AI). Berikut adalah rancangan sequence diagram untuk fitur-fitur utama pada aplikasi CatChat:
+Sequence Diagram Register dan Login
+	Pada Gambar 3.11 ditunjukkan sequence diagram untuk proses autentikasi sistem. Proses ini melibatkan empat entitas utama: User, Frontend (Flutter), Backend (Node.js), dan Database (MySQL). Interaksi dimulai ketika pengguna memasukkan email dan password lalu menekan tombol masuk. Frontend akan membungkus data tersebut dan mengirimkannya melalui HTTP Request POST ke Backend. Selanjutnya, Backend akan melakukan kueri ke Database untuk memverifikasi kecocokan kredensial. Jika data tidak valid, Backend akan mengembalikan status error dan Frontend akan memunculkan pesan peringatan kepada pengguna. Namun, jika kredensial valid, Backend akan membuatkan token JWT (JSON Web Token) lalu mengirimkannya kembali ke Frontend. Frontend kemudian menyimpan token tersebut ke dalam SharedPreferences lokal dan mengarahkan pengguna untuk masuk ke halaman aplikasi.
+Gambar 3.11 Sequence Diagram Register dan Login
+Sequence Diagram Dinding Doa
+	Pada Gambar 3.12 ditunjukkan sequence diagram untuk interaksi pada fitur Dinding Doa. Saat halaman dibuka, Frontend akan melakukan request HTTP GET ke Backend untuk mengambil daftar cerita. Backend mengeksekusi kueri ke basis data MySQL dan mengembalikan respons berbentuk JSON. Saat pengguna menekan tombol "Doa" pada salah satu cerita anonim, Frontend mengirimkan permintaan POST beserta ID cerita. Backend akan memastikan bahwa pengguna belum mendoakan cerita tersebut sebelumnya di Database, lalu mencatat doa baru tersebut dan mengembalikan status sukses agar Frontend memperbarui User Interface (UI).
+Gambar 3.12 Sequence Diagram Dinding Doa
+Sequence Diagram Teman Curhat AI
+	Pada Gambar 3.13 dijelaskan alur pertukaran pesan antara pengguna dengan kecerdasan buatan. Frontend menangkap teks input curhatan dari pengguna dan mengirimkannya ke Backend melalui protokol HTTP. Backend Node.js kemudian bertindak sebagai jembatan (proxy) yang meneruskan teks (prompt) tersebut menuju REST-API Google Gemini. Setelah Gemini melakukan pemrosesan Natural Language Processing (NLP) dan memberikan teks respons empati, Backend menerima respons tersebut dan mengembalikannya ke Frontend. Frontend kemudian menampilkannya di layar percakapan sekaligus menyimpannya secara lokal di SharedPreferences untuk menjaga privasi (Privacy by Design).
+Gambar 3.13 Sequence Diagram Chat AI
+Sequence Diagram Jurnal Harian
+	Pada Gambar 3.14 ditunjukkan sequence diagram penulisan jurnal. Proses ini dimulai ketika Frontend meminta histori jurnal untuk ditampilkan. Ketika pengguna membuat entri baru, Frontend membungkus data judul, narasi catatan, dan status mood ke dalam body request JSON. Backend menerima data ini, melakukan sanitasi terhadap karakter berbahaya, lalu menyimpannya ke tabel journals di basis data. Setelah penyimpanan berhasil, Backend memberikan konfirmasi, dan Frontend akan memuat ulang daftar jurnal agar catatan terbaru langsung muncul di layar.
+Gambar 3.14 Sequence Diagram Jurnal Harian
+Sequence Diagram Mood Tracker
+	Pada Gambar 3.15 dijelaskan alur kalkulasi emosi secara otomatis pada fitur Mood Tracker. Fitur ini tidak memerlukan masukan manual. Saat layar diakses, Frontend mengirim permintaan rekapitulasi data. Backend melakukan kueri analitik ke MySQL untuk menarik seluruh data mood dari tabel journals selama satu bulan terakhir. Backend kemudian melakukan agregasi data (menghitung rata-rata skor dan frekuensi mood dominan) di server. Hasil kalkulasi ini dikembalikan dalam format array JSON ke Frontend, yang kemudian menggunakan library visualisasi untuk me-render grafik fluktuasi kepada pengguna.
+Gambar 3.15 Sequence Diagram Mood Tracker
+Sequence Diagram Manajemen Profil dan Keamanan
+	Pada Gambar 3.16 ditunjukkan sequence diagram fitur privasi mutlak pengguna, khususnya proses penghapusan akun (Delete Account). Setelah pengguna memberikan konfirmasi final di layar, Frontend mengirim instruksi penghapusan HTTP DELETE ke Backend beserta token validasi. Backend mengeksekusi kueri DELETE CASCADE ke MySQL untuk memusnahkan seluruh data terkait identitas dan histori jurnal pengguna dari server tanpa sisa. Setelah mendapat konfirmasi sukses, Frontend secara simultan membersihkan seluruh cache sesi, memori riwayat chat AI di SharedPreferences, dan membuang pengguna kembali ke Landing Page.
+Gambar 3.16 Sequence Diagram Manajemen Profil dan Keamanan
+Perancangan Fisik
+Perancangan Basis Data SQL
+Tabel User
+Nama tabel: users
+Primary key: id
+Foreign: -
+	Struktur tabel users dapat dilihat pada tabel 3.1. Tabel ini menyimpan seluruh data identitas dan kredensial pengguna yang terdaftar.
+Tabel 3.1 Struktur Tabel Users
+Tabel Stories
+Nama tabel: stories
+Primary key: id
+Foreign: user_id
+	Struktur tabel stories dapat dilihat pada tabel 3.2. Tabel ini menyimpan seluruh cerita yang dipublikasikan pengguna di Dinding Doa.
+Tabel 3.2 Struktur Tabel Stories
+Tabel Players (Doa/Dukungan)
+Nama tabel: prayers
+Primary key: id
+Foreign: story_id, user_id
+	Struktur tabel prayers dapat dilihat pada tabel 3.3. Tabel mencatat interaksi dukungan (Doa) antar pengguna.
+Tabel 3.3 Struktur Tabel Prayers
+Tabel Jurnals
+Nama tabel: journals
+Primary key: id
+Foreign: user_id
+	Struktur tabel journals dapat dilihat pada tabel 3.4. Tabel ini menyimpan catatan jurnal harian dan data mood pengguna secara terpadu.
+Tabel 3.4 Struktur Tabel Journals
+Data SharedPreferences (LocalStorage)
+	Struktur penyimpanan shared_preferences dapat dilihat pada Tabel 3.5. selain basis data MySQL, aplikasi juga menyimpan data berikut secara lokal di perangkat pengguna:
+Tabel 3.5 Struktur Data SharedOraferences
+Perancangan Antarmuka
+	Perancangan antarmuka (User Interface / UI) adalah proses membuat gambaran awal sistem yang akan dikembangkan berfungsi sebagai panduan visual bagi pengembang dalam memahami tampilan dan alur penggunaan sistem.
+Desain Halaman Landing Page
+	Pada Gambar 3.17 ditunjukkan antarmuka landing page, pengguna diberikan pengenalan awal terhadap aplikasi CatChat berupa tagline dan deskripsi singkat. Pada halaman ini terdapat tombol “Mulai Perjalananmu” yang apabila ditekan akan mengarahkan pengguna ke halaman register atau login.
+Gambar 3.17 Desain Halaman Landing Page
+Desain Halaman Register
+	Pada Gambar 3.18 ditunjukkan antarmuka register user, pengguna diminta melakukan input data berupa email, nama samaran (username), dan password. Setelah melakukan input data dan menekan tombol daftar, sistem akan membuatkan akun dan pengguna akan diarahkan ke dalam App Lock untuk mengatur PIN akun.
+Gambar 3.18 Desain Halaman Register
+Desain Halaman Login
+	Pada Gambar 3.19 ditunjukkan antarmuka login user, pengguna yang sudah mendaftar diminta melakukan input data berupa email dan password. Setelah melakukan input data dan menekan tombol masuk, maka pengguna akan diarahkan ke halaman App Lock untuk diminta memasukkan PIN.
+Gambar 3.19 Desain Halaman Login
+Desain Halaman App Lock (PIN)
+	Pada Gambar 3.20 ditunjukkan antarmuka app lock, pengguna diminta melakukan input 6 digit angka sebagai PIN keamanan sebelum dapat mengakses isi aplikasi. Setelah menginputkan PIN yang sesuai dengan yang telah diatur sebelumnya, maka pengguna akan diberikan akses masuk.
+Gambar 3.20 Desain Halaman App Lock (PIN)
+Desain Halaman Utama (Home)
+	Pada Gambar 3.21 ditunjukkan antarmuka utama pengguna, halaman ini menampilkan sapaan kepada pengguna dan kutipan motivasi yang berganti secara otomatis. Pada halaman ini juga terdapat menu navigasi dan cuplikan cerita terbaru dari Dinding Doa milik pengguna lain.
+Gambar 3.21 Desain Halaman Utama (Home)
+Desain Halaman Dinding Doa
+	Pada Gambar 3.22 ditunjukkan antarmuka dinding doa, pengguna dapat membaca cerita curahan hati dari pengguna lain secara anonim dan saling memberikan interaksi dukungan berupa doa. Pengguna juga dapat menulis dan mengunggah ceritanya sendiri pada halaman ini.
+Gambar 3.22 Desain Halaman Dinding Doa
+Desain Halaman Chat AI
+	Pada Gambar 3.23 ditunjukkan antarmuka chat AI, pengguna dapat melakukan interaksi percakapan privat dengan kecerdasan buatan. Pengguna dapat mengetikkan teks pesannya dan sistem AI akan memproses masukan tersebut untuk memberikan balasan yang empatik.
+Gambar 3.23 Desain Halaman Chat AI
+Desain Halaman Jurnal Harian
+	Pada Gambar 3.24 ditunjukkan antarmuka jurnal harian, pengguna dapat menyimpan dan melihat riwayat catatan refleksinya dari waktu ke waktu. Pada Gambar 3.25 Saat menambahkan jurnal, pengguna diminta menginputkan judul, isi catatan, serta memilih status emosi yang sedang dirasakan saat itu.
+Gambar 3.24  Desain Halaman Jurnal
+Gambar 3.25  Desain Halaman Tambah Jurnal 
+Desain Halaman Mood Tracker
+	Pada Gambar 3.26 ditunjukkan antarmuka mood tracker, pengguna dapat memantau kalkulasi statistik kondisi emosionalnya. Halaman ini menyajikan visualisasi data ke dalam bentuk grafik fluktuasi mood mingguan dan bulanan berdasarkan masukan pada jurnal harian.
+Gambar 3.26  Desain Halaman Mood Tracker
+Desain Halaman Profil
+	Pada Gambar 3.27 ditunjukkan antarmuka profil user, pengguna dapat melihat dan mengelola identitas akunnya. Pada halaman ini disediakan pengaturan untuk mengatur PIN, menghapus akun secara permanen, dan keluar (logout) dari aplikasi.
+Gambar 3.27 Desain Halaman Profil
+
+PRODUK
+Hasil
+	Hasil penelitian diambil berdasarkan tahapan penelitian yang telah dilakukan sebelumnya. Kemudian, penulis memaparkan hasil penelitian berupa aplikasi Deeptalk Anonim yang lebih efisien dan aman. Dengan adanya aplikasi ini, diharapkan pengguna yang membutuhkan ruang curhat aman tetap dapat menggunakan aplikasi dengan privasi yang terjamin tanpa takut akan stigma maupun perundungan siber (cyberbullying).
+	Pada perancangan antarmuka dilakukan menggunakan perangkat lunak Figma dan perancangan konseptual menggunakan Draw.io. Selanjutnya, aplikasi yang akan digunakan oleh user dibuat menggunakan bahasa pemrograman Dart dan dibangun dengan framework Flutter pada perangkat lunak Visual Studio Code, sedangkan arsitektur backend menggunakan Node.js.
+Implementasi Database
+	Implementasi database dibuat berdasarkan perancangan tabel yang sudah ditunjukkan pada bab sebelumnya. Database untuk aplikasi Deeptalk Anonim dibuat menggunakan MySQL. Pada aplikasi ini, koneksi ke database dilakukan melalui API berbasis Node.js sebagai perantara antara aplikasi dan basis data.
+Implementasi Database
+	Pada Gambar 4.1 ditunjukkan implementasi query SQL untuk database utama. Sistem akan memiliki ‘id’ sebagai kode unik dari setiap user, ‘username’ sebagai identitas anonim, ‘email’ dan ‘password’ sebagai verifikasi login, serta ‘created_at’ untuk mengetahui kapan akun dibuat.
+Gambar 4.1 Struktur Database UsersGambar
+Implementasi Halaman Antarmuka User
+	Halaman antarmuka user memiliki fitur utama yaitu Dinding Doa Chat AI, Jurnal, dan Mood Tracker. Penulis berhasil mengimplementasikan halaman landing page, halaman register, halaman login, halaman utama, hingga halaman profil. Pada penelitian ini, penulis berhasil melakukan implementasi dengan mengambil data melalui API backend Node.js.
+Halaman Landing Page
+	Dalam Gambar 4.2 menunjukkan halaman landing page yang berhasil diimplementasikan oleh penulis. Pada halaman tersebut user diberikan pengenalan awal terhadap aplikasi CatChat berupa tagline dan deskripsi singkat. Terdapat tombol aksi “Mulai Perjalananmu” untuk masuk ke sistem.
+Gambar 4.2 Halaman Landing page
+	Potongan kode di bawah ini adalah tampilan utama untuk antarmuka landing page yang memuat tombol navigasi menuju halaman berikutnya.
+Halaman Register User
+	Halaman register user berisikan kolom input email, username (nama samaran), dan password. Input data ini akan dikirim ke database dengan keamanan hash pada backend. Sesuai dengan batasan masalah anonimitas, pengguna juga diberikan opsi tombol random untuk mengacak username. Halaman register user dapat dilihat pada Gambar 4.3.
+Gambar 4.3 Halaman Register User
+	Potongan kode di bawah ini untuk halaman register user yang akan mengirimkan data email, username, dan password ke backend Node.js.
+Halaman Login User
+	Dalam Gambar 4.4 menunjukkan halaman login yang berhasil diimplementasikan. Pada halaman tersebut user dapat memasukkan email dan kata sandi yang sudah didaftarkan pada halaman register. Setelah berhasil masuk, token sesi akan tersimpan secara lokal.
+Gambar 4.4 Halaman Login User
+	Potongan kode di bawah ini untuk halaman login user yang memuat logika antarmuka input field untuk memasukkan email dan password pengguna.
+Halaman App Lock (PIN)
+	Halaman App Lock ditunjukkan pada Gambar 4.5. Halaman ini berfungsi sebagai perlindungan privasi ekstra di mana user diwajibkan memasukkan 6 digit PIN keamanan sebelum dapat mengakses data curhatannya di dalam aplikasi.
+Gambar 4.5 Halaman App Lock (PIN)
+	Potongan kode di bawah ini untuk antarmuka App Lock yang menghasilkan animasi titik PIN saat pengguna mengetik.
+Halaman Utama (Home)
+	Desain pada halaman utama user menampilkan sapaan secara anonim, kutipan motivasi, menu untuk berpindah ke fitur aktivitas, serta preview cerita terbaru dari Dinding Doa. Halaman utama dapat dilihat pada Gambar 4.6.
+Gambar 4.6 Halaman Utama User
+ 	Potongan kode di bawah ini menunjukkan cara antarmuka memuat widget ringkasan statistik Mood Tracker dari database.
+Halaman Dinding Doa
+	Halaman Dinding Doa ditunjukkan pada Gambar 4.7 dengan menampilkan daftar curahan hati dari user lain secara anonim. Sesuai dengan rancangan sistem untuk mitigasi perundungan, tidak ada kolom komentar, sehingga pengguna lain hanya dapat berinteraksi positif dengan memberikan dukungan moral (tombol “Doa”).
+Gambar 4.7 Halaman Dinding Doa
+	Potongan kode di bawah ini untuk tombol antarmuka fitur penyaluran dukungan pada halaman Dinding Doa.
+Halaman Chat AI
+	Dalam Gambar 4.8 ditunjukkan implementasi fitur utama Chat AI. Pada halaman ini, pengguna dapat mengirimkan pesan keluh kesah mereka dan secara real-time menerima respons dari sistem kecerdasan buatan (Google Gemini API). Halaman ini didesain sesederhana mungkin agar pengguna merasa nyaman dan intim layaknya mengobrol dengan teman sungguhan.
+Gambar 4.8 Halaman Chat AI
+	Potongan kode di bawah ini adalah logika antarmuka yang memberi tahu pengguna bahwa integrasi API AI masih belum diproses penuh di tahap ini.
+Halaman Jurnal Harian
+	Halaman jurnal harian ditunjukkan pada Gambar 4.9. User dapat membuat catatan reflektif baru dengan mengisi judul, isi teks, serta mengeklik ikon mood yang mendeskripsikan perasaannya saat jurnal ditulis.
+Gambar 4.9 Halaman Jurnal Harian
+	Potongan kode di bawah ini untuk antarmuka jurnal harian ketika belum ada entri tulisan baru yang ditambahkan oleh pengguna.
+Halaman Mood Tracker
+	Dalam Gambar 4.10 menunjukkan hasil implementasi Mood Tracker. Halaman ini secara otomatis menyajikan visualisasi data emosional berdasarkan masukan user di Jurnal Harian.
+Gambar 4.10 Halaman Mood Tracker
+	Potongan kode di bawah ini untuk antarmuka halaman mood tracker yang merender gambar ikon grafik sentimen emosi.
+Halaman Profil User
+	Halaman profil user ditunjukkan pada Gambar 4.11. Pada halaman ini user dapat mengatur PIN aplikasi, keluar sesi (logout), atau menghapus akun secara permanen beserta data database nya.
+Gambar 4.11 Halaman Profil User
+	Potongan kode di bawah ini untuk antarmuka halaman profil yang menyajikan navigasi penting: tombol Logout dan tombol Hapus Akun.
+Pembahasan Hasil
+	Dalam Pembahasan peneliti melakukan pengujian aplikasi menggunakan metode Black Box Testing. Pengujian ini bertujuan untuk mengetahui kesesuaian hasil perancangan sistem dengan analisis kebutuhan yang telah diuraikan sebelumnya. Tabel 4.1 menunjukkan hasil pengujian untuk aplikasi berbasis web yang digunakan oleh user.
+Tabel 4.1 Pengujian Tabel user
+	Selain hasil pengujian fungsionalitas, pembahasan hasil juga mengacu pada perbandingan dengan penelitian terdahulu yang terdapat pada Tabel 2.1 (Tinjauan Pustaka). Pada penelitian sebelumnya (seperti aplikasi anonim peer-to-peer di Telegram dan Twitter), anonimitas antarpengguna manusia seringkali menimbulkan risiko penyalahgunaan yang bermuara pada perundungan siber (cyberbullying) dan pemberian judgment negatif yang justru memperburuk kondisi mental korban. 
+	Aplikasi (APK) Deeptalk Anonim yang telah diimplementasikan dalam penelitian ini berhasil menjawab dan menutup celah keamanan psikologis tersebut. Sesuai dengan isi rancangan dokumen dan implementasi pada aplikasi, fitur Dinding Doa terbukti dapat menjadi wadah interaksi sosial tanpa perlu membuka kolom komentar. Pengguna hanya dapat saling memberikan dukungan pasif melalui tombol Doa. Kemudian, pemisahan secara mandiri antara Jurnal Harian dan Mood Tracker dari interaksi publik memastikan aktivitas expressive writing pengguna tetap aman dan tertutup.
+Pengemabangan Ke Tugas Akhir
+	Pengembangan aplikasi selanjutnya diperlukan untuk memastikan aplikasi dapat lebih baik dan memiliki manfaat yang lebih banyak. Pengembangan selanjutnya akan berjudul “CatChat: Aplikasi E-Mental Health Berbasis Ruang Obrolan Anonim dan Integrasi Kecerdasan Buatan untuk Mendukung Kesehatan Mental Generasi Z”. Sehingga fokus pada pengembangan berikutnya berupa:
+Penambahan fitur integrasi Voice-to-Text sehingga user dapat menggunakan aplikasi obrolan AI bukan hanya melalui teks, tetapi juga melalu suara (audio).
+Personalisasi persona kecerdasan buatan sehingga user dapat mengatur karakter AI yang diinginkan (misalnya sosok sahabat, kakak, atau psikologi).
+Penambahan fitur tombol darurat (panic button) di antarmuka obrolan sebagai langkah mudah agar user terhubung langsung dengan kontak layanan krisis kesehatan mental atau tenaga prefesional.
+Penyempurnaan tampilan (User interface) untuk aplikasi secara keseluruhan agar lebih interaktif dan menenangkan.
+	Pengembangan yang akan dilakukan diharapkan dapat dihasilkan dan menjadi aplikasi yang lebih bermanfaat. Selain itu, aplikasi ini dapat menjadi salah satu langkah nyata masyarakat untuk mengurangi risiko perundungan siber (cyberbullying) di media sosial dan membiasakan diri untuk peduli terhadap kesehatan mental melalui kebiasaan expressive writing (menulis jurnal) dan berbagi hal positif.
+
+KESIMPULAN
+	Dari penelitian yang sudah diuraikan, mulai dari latar belakang, perancangan, dan implementasi, aplikasi berhasil dibangun menyesuaikan kebutuhan pengguna sebagai ruang curhat aman (safe space). Aplikasi Deeptalk Anonim yang dibangun menggunakan framework Flutter dan backend Node.js ini meniadakan kolom komentar bebas pada fitur Dinding Doa serta menyediakan Jurnal Harian dan Mood Tracker. Penggunaan arsitektur berbasis REST-API serta optimasi penyimpanan lokal (SharedPreferences) yang membatasi riwayat cache percakapan AI hingga 50 sesi, terbukti sangat efektif dalam menjaga efisiensi performa dan menghemat penggunaan memori perangkat genggam pengguna. Hal ini dapat disimpulkan bahwa aplikasi Deeptalk Anonim berhasil menjadi sebuah solusi ekosistem sosial tertutup yang ringan dan aman untuk memitigasi risiko perundungan siber (cyberbullying) bagi generasi muda. 
+	Hasil pengujian dengan metode black box yang difokuskan pada fitur utama juga menunjukkan tingkat kesesuaian dengan hasil yang diharapkan. Pengguna sudah dapat melakukan registrasi, mengamankan privasi dengan App Lock PIN, mengubah profil avatar anonim, mempublikasikan cerita pada Dinding Doa, menulis jurnal dan melacak fluktuasi emosi, serta berinteraksi mencurahkan keluh kesah melalui fitur Teman Curhat AI yang terintegrasi dengan API Google Gemini.
+	Penelitian ini diharapkan bisa dikembangkan lebih lanjut, dengan pengembangan yang mengoptimalkan sistem, penambahan fitur integrasi voice-to-text dan text-to-voice, penambahan opsi personalisasi persona AI, penambahan tombol darurat (panic button), dan penyempurnaan tampilan aplikasi Deeptalk Anonim.
+DAFTAR PUSTAKA
+Adnandi, Muhammad Arba, Fitri Andriyani, and Yeyet Widiyanti. 2025. “ANALISIS MINDNEST : INOVASI APLIKASI KESEHATAN MENTAL DIGITAL BERBASIS MOBILE DENGAN KONSEP VIRTUAL HEALING UNTUK GENERASI Z.” 2(1): 1–15.
+Aurellia, Zerlina, El Sahara, Moch Ilham, Zain Welerubun, and Oktavia Dwi Ramadhani. 2024. “Pengalaman Pengguna X Sebagai Platform Curhat ( Studi Fenomenologi ).” : 616–23.
+Fahrezi, Fahmi, Alief Budiyono, Elis Ijayati, and Vicilia Hellwa Chabelita. 2025. “Jurnal Bimbingan Dan Konseling Pandohop Pemanfaatan Fitur @ AnonymousChat Telegram Sebagai Media Kuratif Dalam Counseling for Adolescents and Young Adults.” 5.
+Hartono, B. 2023. Sistem Informasi Manajemen Dan Pemodelan UML. Penerbit Andi.
+Lee, Yi Ping, Ying Ying Lee, Hamidah Binte Otheman, Charmaine Tang, Mythily Subramaniam, and Swapna K Verma. 2025. “Delving into the World of WebCHAT – an e-Mental Health Support Service for Distressed Youths in Singapore.” doi:10.1177/20552076251314912.
+Rahmanto, Anugrah Nur, Ika Kusumaning Putri, and Mardhiyah Millania. “PENERAPAN DESIGN THINKING DENGAN USABILITY TESTING MENGGUNAKAN SYSTEM USABILITY SCALE PADA ANTARMUKA APLIKASI.” : 15–24.
+Thorn, Pinar, Louise La Sala, Sarah Hetrick, Simon Rice, Michelle Lamblin, and Jo Robinson. 2023. “Motivations and Perceived Harms and Bene Fi Ts of Online Communication about Self-Harm : An Interview Study with Young People.” doi:10.1177/20552076231176689.
+Zein, A. 2023. Rekayasa Perangkat Lunak Dan Pemodelan Sistem Cerdas. Penerbit Informatika.

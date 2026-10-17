@@ -125,7 +125,7 @@ class _RegisterPageState extends State<RegisterPage>
                     child: FadeTransition( // FadeTransition menerapkan animasi fade (memudar masuk/keluar) pada child-nya.
                       opacity: _fadeAnim, // Menggunakan _fadeAnim untuk mengontrol opacity.
                       child: SingleChildScrollView( // Memungkinkan konten di dalamnya dapat discroll jika melebihi tinggi layar.
-                        padding: EdgeInsets.all(20), // Padding di sekitar konten yang dapat discroll.
+                        padding: EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20), // Padding di sekitar konten yang dapat discroll.
                         child: Column( // Column menyusun widget secara vertikal.
                           crossAxisAlignment: CrossAxisAlignment.stretch, // Mengisi lebar yang tersedia.
                           children: [
@@ -141,6 +141,24 @@ class _RegisterPageState extends State<RegisterPage>
               },
             ),
           ),
+          
+          // Floating Back Button
+          if (Navigator.canPop(context))
+            Positioned(
+              top: 16,
+              left: 16,
+              child: SafeArea(
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_ios_new_rounded, color: _textPrimary, size: 24),
+                  onPressed: () => Navigator.pop(context),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white.withOpacity(0.5),
+                    highlightColor: _accent.withOpacity(0.2),
+                    padding: EdgeInsets.all(12),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

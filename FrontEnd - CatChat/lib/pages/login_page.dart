@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage>
                     child: FadeTransition( // Menerapkan efek fade in pada widget anak.
                       opacity: _fadeAnim, // Menggunakan _fadeAnim untuk mengontrol opasitas.
                       child: SingleChildScrollView( // Memungkinkan konten untuk di-scroll jika melebihi ukuran layar.
-                        padding: EdgeInsets.all(20), // Memberi padding 20 di sekeliling konten.
+                        padding: EdgeInsets.only(top: 40, bottom: 20, left: 20, right: 20), // Memberi padding 20 di sekeliling konten.
                         child: Column( // Mengatur widget anak secara vertikal.
                           crossAxisAlignment: CrossAxisAlignment.stretch, // Meregangkan anak-anak secara horizontal.
                           children: [
@@ -137,6 +137,24 @@ class _LoginPageState extends State<LoginPage>
               },
             ),
           ),
+          
+          // Floating Back Button
+          if (Navigator.canPop(context))
+            Positioned(
+              top: 16,
+              left: 16,
+              child: SafeArea(
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_ios_new_rounded, color: _textPrimary, size: 24),
+                  onPressed: () => Navigator.pop(context),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white.withOpacity(0.5),
+                    highlightColor: _accent.withOpacity(0.2),
+                    padding: EdgeInsets.all(12),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

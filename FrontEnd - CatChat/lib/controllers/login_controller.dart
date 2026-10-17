@@ -66,26 +66,27 @@ class LoginController extends ChangeNotifier {
       return; // Menghentikan eksekusi metode karena login gagal.
     }
 
-    // Login success — check if PIN exists
-    // Jika kode mencapai sini, berarti login berhasil. Langkah selanjutnya adalah memeriksa apakah pengguna sudah memiliki PIN.
-    final hasPin = await AuthService.instance.hasPIN(); // Memanggil metode hasPIN dari AuthService untuk memeriksa keberadaan PIN.
-    if (!context.mounted) return; // Memeriksa kembali apakah widget masih terpasang.
+    // Login success
+    final hasPin = await AuthService.instance.hasPIN();
+    final wantsToResetPin = await AuthService.instance.getWantsToResetPin();
+    
+    if (!context.mounted) return;
 
-    if (hasPin) {
-      // Jika pengguna sudah memiliki PIN.
-      // Go to AppLockPage to verify the PIN
+    if (hasPin && !wantsToResetPin) {
+      // Jika user sudah punya PIN dan tidak meminta reset, minta mereka masukkan PIN lamanya.
       Navigator.of(context).pushAndRemoveUntil(
-        // Melakukan navigasi ke halaman AppLockPage.
-        MaterialPageRoute(builder: (_) => const AppLockPage()), // Membuat rute baru ke AppLockPage.
-        (_) => false, // Menghapus semua rute sebelumnya dari stack, sehingga pengguna tidak bisa kembali ke halaman login.
+        MaterialPageRoute(builder: (_) => const AppLockPage()),
+        (_) => false,
       );
     } else {
-      // Jika pengguna belum memiliki PIN.
-      // Need to create PIN first
+      // Jika user belum punya PIN, ATAU jika mereka baru saja menekan tombol Lupa PIN,
+      // arahkan mereka untuk membuat PIN baru.
+      if (wantsToResetPin) {
+        await AuthService.instance.setWantsToResetPin(false); // Bersihkan status reset
+      }
       Navigator.of(context).pushAndRemoveUntil(
-        // Melakukan navigasi ke halaman CreatePinPage.
-        MaterialPageRoute(builder: (_) => const CreatePinPage()), // Membuat rute baru ke CreatePinPage.
-        (_) => false, // Menghapus semua rute sebelumnya dari stack, mencegah kembali ke login.
+        MaterialPageRoute(builder: (_) => const CreatePinPage()),
+        (_) => false,
       );
     }
   }

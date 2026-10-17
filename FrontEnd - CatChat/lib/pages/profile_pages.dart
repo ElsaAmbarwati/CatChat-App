@@ -1,3 +1,4 @@
+import '../widgets/constrained_scaffold.dart';
 // Penjelasan file dan tujuannya:
 // Nama file: profile_pages.dart
 // Deskripsi: File ini mengatur antarmuka pengguna (UI) dan apa yang dilihat pengguna di layar.
@@ -41,7 +42,7 @@ class _ProfilePagesState extends State<ProfilePages> {
     return ListenableBuilder(
       listenable: _controller,
       builder: (context, _) {
-        return Scaffold(
+        return ConstrainedScaffold(
           backgroundColor: Color(0xFFFBF6F2),
           body: Stack(
             children: [
@@ -83,16 +84,18 @@ class _ProfilePagesState extends State<ProfilePages> {
           ),
         ],
       ),
-      child: ClipRRect(
+      child: LayoutBuilder(builder: (context, constraints) {
+        final isWide = constraints.maxWidth >= 800;
+        return ClipRRect(
         borderRadius: BorderRadius.circular(28),
         child: ListView(
-          padding: EdgeInsets.fromLTRB(18, 18, 18, 18),
+          padding: EdgeInsets.fromLTRB(isWide ? 18 : 12, isWide ? 18 : 12, isWide ? 18 : 12, isWide ? 18 : 12),
           children: [
             _ProfileHero(
               selectedAvatarAsset: ProfileController.avatarAssets[_controller.selectedAvatarIndex],
               username: _controller.username,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: isWide ? 16 : 8),
             _AvatarEditorCard(
               selectedAvatarAsset: ProfileController.avatarAssets[_controller.selectedAvatarIndex],
               avatarAssets: ProfileController.avatarAssets,
@@ -100,16 +103,15 @@ class _ProfilePagesState extends State<ProfilePages> {
                 _controller.selectAvatar(index);
               },
             ),
-            SizedBox(height: 24),
+            SizedBox(height: isWide ? 24 : 12),
             _AccountSecuritySection(
               onChangePIN: _changePIN,
               onLogout: _logout,
               onDeleteAccount: _deleteAccount,
             ),
           ],
-
         ),
-      ),
+      );}),
     );
   }
 
@@ -331,9 +333,13 @@ class _ProfileTopBar extends StatelessWidget {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+      padding: EdgeInsets.symmetric(
+        vertical: isWide ? 14 : 10, 
+        horizontal: isWide ? 14 : 10
+      ),
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.86),
         borderRadius: BorderRadius.circular(24),
@@ -345,13 +351,13 @@ class _ProfileTopBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             onTap: onBack,
             child: Container(
-              width: 40,
-              height: 40,
+              width: isWide ? 40 : 26,
+              height: isWide ? 40 : 26,
               decoration: BoxDecoration(
                 color: Color(0xFFF7F1EE),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(Icons.arrow_back, color: Color(0xFF5D4A45)),
+              child: Icon(Icons.arrow_back, size: isWide ? 24 : 16, color: Color(0xFF5D4A45)),
             ),
           ),
           SizedBox(width: 12),
@@ -362,7 +368,7 @@ class _ProfileTopBar extends StatelessWidget {
                 Text(
                   'Profil Saya',
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: isWide ? 22 : 16,
                     fontWeight: FontWeight.w800,
                     color: Color(0xFF3F3734),
                   ),
@@ -371,7 +377,7 @@ class _ProfileTopBar extends StatelessWidget {
                 Text(
                   'Identitas aman, personal, dan tetap anonim.',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: isWide ? 12 : 10,
                     height: 1.4,
                     color: Color(0xFF6D5650),
                   ),
@@ -439,15 +445,16 @@ class _ProfileHero extends StatelessWidget {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return Container(
-      padding: EdgeInsets.all(18),
+      padding: EdgeInsets.all(isWide ? 18 : 12),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [Color(0xFFFDF7F3), Color(0xFFFFFBF8)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(isWide ? 24 : 18),
         border: Border.all(color: Color(0xFFE8DCD4)),
       ),
       child: Column(
@@ -457,8 +464,8 @@ class _ProfileHero extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 68,
-                height: 68,
+                width: isWide ? 68 : 48,
+                height: isWide ? 68 : 48,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color(0xFFF4B5A3),
@@ -467,7 +474,7 @@ class _ProfileHero extends StatelessWidget {
                   child: Image.asset(selectedAvatarAsset, fit: BoxFit.cover),
                 ),
               ),
-              SizedBox(width: 14),
+              SizedBox(width: isWide ? 14 : 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -475,16 +482,16 @@ class _ProfileHero extends StatelessWidget {
                     Text(
                       username,
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: isWide ? 22 : 16,
                         fontWeight: FontWeight.w800,
                         color: Color(0xFF3F3734),
                       ),
                     ),
-                    SizedBox(height: 4),
+                    SizedBox(height: isWide ? 4 : 2),
                     Text(
                       'Ini adalah ruang amanmu. Tidak ada identitas asli yang terhubung ke akun ini.',
                       style: TextStyle(
-                        fontSize: 13,
+                        fontSize: isWide ? 13 : 11,
                         color: Color(0xFF7B6F65),
                         height: 1.4,
                       ),
@@ -522,11 +529,12 @@ class _AvatarEditorCard extends StatelessWidget {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(isWide ? 16 : 10),
       decoration: BoxDecoration(
         color: Color(0xFFF8F4F1),
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(isWide ? 22 : 16),
         border: Border.all(color: Color(0xFFE8DCD4)),
       ),
       child: Column(
@@ -535,26 +543,26 @@ class _AvatarEditorCard extends StatelessWidget {
           Text(
             'Edit Avatar',
             style: TextStyle(
-              fontSize: 15,
+              fontSize: isWide ? 15 : 13,
               fontWeight: FontWeight.w800,
               color: Color(0xFF3F3734),
             ),
           ),
-          SizedBox(height: 4),
+          SizedBox(height: isWide ? 4 : 2),
           Text(
             'Pilih avatar dari aset pf untuk tetap anonim, tanpa unggah foto asli.',
             style: TextStyle(
-              fontSize: 12,
+              fontSize: isWide ? 12 : 10,
               height: 1.4,
               color: Color(0xFF7B6F65),
             ),
           ),
-          SizedBox(height: 14),
+          SizedBox(height: isWide ? 14 : 8),
           Row(
             children: [
               Container(
-                width: 56,
-                height: 56,
+                width: isWide ? 56 : 40,
+                height: isWide ? 56 : 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: Color(0xFFE6D8CF), width: 2),
@@ -563,12 +571,12 @@ class _AvatarEditorCard extends StatelessWidget {
                   child: Image.asset(selectedAvatarAsset, fit: BoxFit.cover),
                 ),
               ),
-              SizedBox(width: 12),
+              SizedBox(width: isWide ? 12 : 8),
               Expanded(
                 child: Text(
                   'Avatar yang dipilih hanya dari kumpulan gambar lokal pf1 sampai pf7. Ini menjaga identitas tetap konsisten dan tidak membuka data pribadi.',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: isWide ? 12 : 9,
                     height: 1.45,
                     color: Color(0xFF6D5650),
                   ),
@@ -576,10 +584,10 @@ class _AvatarEditorCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 14),
+          SizedBox(height: isWide ? 14 : 8),
           Wrap(
-            spacing: 10,
-            runSpacing: 10,
+            spacing: isWide ? 10 : 6,
+            runSpacing: isWide ? 10 : 6,
             children: List.generate(avatarAssets.length, (index) {
               final asset = avatarAssets[index];
               final isSelected = asset == selectedAvatarAsset;
@@ -587,8 +595,8 @@ class _AvatarEditorCard extends StatelessWidget {
               return GestureDetector(
                 onTap: () => onAvatarSelected(index),
                 child: Container(
-                  width: 54,
-                  height: 54,
+                  width: isWide ? 54 : 38,
+                  height: isWide ? 54 : 38,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
@@ -734,23 +742,24 @@ class _AccountSecuritySection extends StatelessWidget {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Akun & Keamanan',
           style: TextStyle(
-            fontSize: 15,
+            fontSize: isWide ? 15 : 13,
             fontWeight: FontWeight.w800,
             color: Color(0xFF3F3734),
           ),
         ),
-        SizedBox(height: 4),
+        SizedBox(height: isWide ? 4 : 2),
         Text(
           'Kelola keamanan akun dan sesi login.',
-          style: TextStyle(fontSize: 12, height: 1.4, color: Color(0xFF7B6F65)),
+          style: TextStyle(fontSize: isWide ? 12 : 10, height: 1.4, color: Color(0xFF7B6F65)),
         ),
-        SizedBox(height: 12),
+        SizedBox(height: isWide ? 12 : 6),
         Container(
           decoration: BoxDecoration(
             color: Color(0xFFF8F4F1),
@@ -793,22 +802,26 @@ class _AccountTile extends StatelessWidget {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width >= 800;
     return InkWell(
       borderRadius: BorderRadius.circular(18),
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: EdgeInsets.symmetric(
+          horizontal: isWide ? 16 : 12, 
+          vertical: isWide ? 14 : 10
+        ),
         child: Row(children: [
           Container(
-            width: 40, height: 40,
+            width: isWide ? 40 : 32, height: isWide ? 40 : 32,
             decoration: BoxDecoration(color: iconBg, borderRadius: BorderRadius.circular(12)),
-            child: Icon(icon, size: 20, color: iconColor ?? Color(0xFF5D4A45)),
+            child: Icon(icon, size: isWide ? 20 : 16, color: iconColor ?? Color(0xFF5D4A45)),
           ),
-          SizedBox(width: 12),
+          SizedBox(width: isWide ? 12 : 10),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(title, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: titleColor ?? Color(0xFF3F3734))),
+            Text(title, style: TextStyle(fontSize: isWide ? 14 : 12, fontWeight: FontWeight.w700, color: titleColor ?? Color(0xFF3F3734))),
             SizedBox(height: 2),
-            Text(subtitle, style: TextStyle(fontSize: 11, color: Color(0xFF7B6F65))),
+            Text(subtitle, style: TextStyle(fontSize: isWide ? 11 : 9, color: Color(0xFF7B6F65))),
           ])),
           Icon(Icons.chevron_right_rounded, color: Color(0xFFB0B8BE)),
         ]),
@@ -816,3 +829,4 @@ class _AccountTile extends StatelessWidget {
     );
   }
 }
+

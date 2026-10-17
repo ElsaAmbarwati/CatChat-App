@@ -1,3 +1,4 @@
+import '../widgets/constrained_scaffold.dart';
 // Penjelasan file dan tujuannya:
 // Nama file: chat_pages.dart
 // Deskripsi: File ini mengatur antarmuka pengguna (UI) dan apa yang dilihat pengguna di layar.
@@ -72,7 +73,7 @@ class _ChatPagesState extends State<ChatPages> {
     return ListenableBuilder(
       listenable: _chatController,
       builder: (context, _) {
-        return Scaffold(
+        return ConstrainedScaffold(
           backgroundColor: Color(0xFFFAF4F0),
           body: SafeArea(
             child: Padding(
@@ -419,7 +420,7 @@ class _ChatHistoryPageState extends State<ChatHistoryPage> {
   // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ConstrainedScaffold(
       backgroundColor: Color(0xFFFAF4F0),
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -503,7 +504,7 @@ class ChatHistoryDetailPage extends StatelessWidget {
         )
         .toList();
 
-    return Scaffold(
+    return ConstrainedScaffold(
       backgroundColor: Color(0xFFFAF4F0),
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -600,3 +601,4 @@ class ChatHistoryDetailPage extends StatelessWidget {
     );
   }
 }
+

@@ -17,6 +17,7 @@ const storyRoutes = require('./routes/story.routes');
 const profileRoutes = require('./routes/profile.routes');
 const journalRoutes = require('./routes/journal.routes');
 const aiRoutes = require('./routes/ai.routes');
+const peerChatRoutes = require('./routes/peer-chat.routes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -70,6 +71,7 @@ app.use('/api/stories', storyRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/journals', journalRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/peer-chat', peerChatRoutes);
 
 // ============================================
 // Error Handling

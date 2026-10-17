@@ -79,6 +79,69 @@ const initializeDatabase = async () => {
     `);
     console.log('✅ Table "journals" is ready');
 
+    // Create chat_rooms table
+    await tempPool.query(`
+      CREATE TABLE IF NOT EXISTS chat_rooms (
+        id VARCHAR(36) PRIMARY KEY,
+        user1_id INT NOT NULL,
+        user2_id INT NOT NULL,
+        user1_alias VARCHAR(50),
+        user2_alias VARCHAR(50),
+        topic VARCHAR(50) DEFAULT 'bebas',
+        status ENUM('active','ended','waiting') DEFAULT 'waiting',
+        consent_status ENUM('none','pending_user1','pending_user2','accepted','rejected') DEFAULT 'none',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        ended_at TIMESTAMP NULL,
+        FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ Table "chat_rooms" is ready');
+
+    // Create peer_messages table
+    await tempPool.query(`
+      CREATE TABLE IF NOT EXISTS peer_messages (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        room_id VARCHAR(36) NOT NULL,
+        sender_id INT NOT NULL,
+        text TEXT NOT NULL,
+        type ENUM('text','system','consent_request') DEFAULT 'text',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (room_id) REFERENCES chat_rooms(id) ON DELETE CASCADE,
+        FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ Table "peer_messages" is ready');
+
+    // Create reports table
+    await tempPool.query(`
+      CREATE TABLE IF NOT EXISTS reports (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        reporter_id INT,
+        reported_id INT,
+        room_id VARCHAR(36),
+        reason VARCHAR(255),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (reported_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ Table "reports" is ready');
+
+    // Create blocked_users table
+    await tempPool.query(`
+      CREATE TABLE IF NOT EXISTS blocked_users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        blocker_id INT,
+        blocked_id INT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY unique_block (blocker_id, blocked_id),
+        FOREIGN KEY (blocker_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (blocked_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ Table "blocked_users" is ready');
+
     console.log('🎉 All database tables initialized successfully!');
   } catch (error) {
     console.error('❌ Database initialization failed:', error.message);

@@ -14,7 +14,7 @@ import 'dinding_doa_pages.dart';
 import 'journal_pages.dart';
 import 'mood_tracker.dart';
 import 'profile_pages.dart';
-
+import 'peer_chat_lobby_page.dart';
 
 // ==========================================
 // Class HomePages
@@ -53,25 +53,7 @@ class _HomePagesState extends State<HomePages> {
       builder: (context, _) {
         return Scaffold(
           backgroundColor: Color(0xFFFAF4F0),
-      appBar: isWide
-          ? null
-          : AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              iconTheme: const IconThemeData(color: Color(0xFF3F3734)),
-            ),
-      drawer: isWide
-          ? null
-          : Drawer(
-              backgroundColor: Color(0xFFFAF4F0),
-              child: SafeArea(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: _NavigationSidebar(),
-                ),
-              ),
-            ),
-      body: SafeArea(
+          body: SafeArea(
         child: Padding(
           padding: EdgeInsets.fromLTRB(24, isWide ? 24 : 0, 24, 24),
           child: isWide
@@ -87,19 +69,17 @@ class _HomePagesState extends State<HomePages> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           _HomeHeader(quote: _controller.selectedQuote, username: _controller.username),
-                          SizedBox(height: 14),
+                          SizedBox(height: 10),
                           Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  _ShortcutButtonsRow(onReturnFromDoa: _onReturnFromDoa),
-                                  SizedBox(height: 14),
-                                  _MoodSummaryRow(),
-                                  SizedBox(height: 14),
-                                  _BottomContent(controller: _controller, onReturnFromDoa: _onReturnFromDoa),
-                                ],
-                              ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                _MoodSummaryRow(),
+                                SizedBox(height: 10),
+                                Expanded(
+                                  child: _BottomContent(controller: _controller, onReturnFromDoa: _onReturnFromDoa),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -110,19 +90,19 @@ class _HomePagesState extends State<HomePages> {
               : Column(
                   children: [
                     _HomeHeader(quote: _controller.selectedQuote, username: _controller.username),
-                    SizedBox(height: 14),
+                    SizedBox(height: 10),
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            _ShortcutButtonsRow(onReturnFromDoa: _onReturnFromDoa),
-                            SizedBox(height: 14),
-                            _MoodSummaryRow(),
-                            SizedBox(height: 14),
-                            _BottomContent(controller: _controller, onReturnFromDoa: _onReturnFromDoa),
-                          ],
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _ShortcutButtonsRow(onReturnFromDoa: _onReturnFromDoa),
+                          SizedBox(height: 10),
+                          _MoodSummaryRow(),
+                          SizedBox(height: 10),
+                          Expanded(
+                            child: _BottomContent(controller: _controller, onReturnFromDoa: _onReturnFromDoa),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -192,7 +172,7 @@ class _NavigationSidebar extends StatelessWidget {
             },
           ),
           _SidebarItem(
-            label: 'Mood Tracker',
+            label: 'Statistik Mood',
             onTap: () {
               Navigator.push(
                 context,
@@ -312,11 +292,9 @@ class _HomeHeader extends StatelessWidget {
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: Color(0xFFE7D8CF)),
+        color: Colors.transparent,
       ),
       child: Row(
         children: [
@@ -326,36 +304,36 @@ class _HomeHeader extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    SizedBox(width: 6),
+                    SizedBox(width: 4),
                     Image(
                       image: AssetImage('assets/images/logo2.png'),
-                      width: 75,
-                      height: 45,
+                      width: 60,
+                      height: 36,
                       fit: BoxFit.cover,
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(width: 8),
                     Text(
                       'Catchat',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 12,
                         color: Color(0xFF7B6F65),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 6),
                 Text(
                   '${_getGreeting()} $username',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF3F3734),
                   ),
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 6),
                 SizedBox(
-                  height: 72,
+                  height: 38,
                   child: AnimatedSwitcher(
                     duration: Duration(milliseconds: 850),
                     switchInCurve: Curves.easeOutQuart,
@@ -363,7 +341,7 @@ class _HomeHeader extends StatelessWidget {
                   layoutBuilder: (currentChild, previousChildren) {
                     return Stack(
                       alignment: Alignment.centerLeft,
-                      children: [...previousChildren, ?currentChild],
+                      children: [...previousChildren, if (currentChild != null) currentChild],
                     );
                   },
                   transitionBuilder: (child, animation) {
@@ -388,9 +366,11 @@ class _HomeHeader extends StatelessWidget {
                     child: Text(
                       quote,
                       textAlign: TextAlign.left,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 14,
-                        height: 1.6,
+                        fontSize: 12,
+                        height: 1.5,
                         color: Color(0xFF6D5650),
                       ),
                     ),
@@ -401,8 +381,8 @@ class _HomeHeader extends StatelessWidget {
                 Text(
                   _getSubGreeting(),
                   style: TextStyle(
-                    fontSize: 14,
-                    height: 1.6,
+                    fontSize: 11,
+                    height: 1.4,
                     fontStyle: FontStyle.italic,
                     color: Color(0xFF6D5650),
                   ),
@@ -410,12 +390,13 @@ class _HomeHeader extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(width: 8),
           ClipRRect(
-            borderRadius: BorderRadius.circular(22),
+            borderRadius: BorderRadius.circular(16),
             child: Image.asset(
               'assets/images/logo1.jpg',
-              width: 96,
-              height: 96,
+              width: 72,
+              height: 72,
               fit: BoxFit.cover,
             ),
           ),
@@ -436,59 +417,90 @@ class _ShortcutButtonsRow extends StatelessWidget {
   const _ShortcutButtonsRow({this.onReturnFromDoa});
 
   @override
-  
-  // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
-  // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(14),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Color(0xFFE7D8CF)),
       ),
-      child: Row(
+      child: Column(
         children: [
-          Expanded(
-            child: _ShortcutButton(
-              label: 'Mulai Curhat',
-              color: Color(0xFFB0B8BE),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ChatPages()),
-                );
-              },
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: _ShortcutButton(
+                  label: 'Chat',
+                  icon: Icons.chat_bubble_outline,
+                  color: Color(0xFFF4B5A3),
+                  onTap: () => _showChatPickerDialog(context),
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: _ShortcutButton(
+                  label: 'Dinding Doa',
+                  icon: Icons.article_outlined,
+                  color: Color(0xFFB0B8BE),
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const DindingDoaPages(),
+                      ),
+                    );
+                    if (onReturnFromDoa != null) onReturnFromDoa!();
+                  },
+                ),
+              ),
+            ],
           ),
-          SizedBox(width: 16),
-          Expanded(
-            child: _ShortcutButton(
-              label: 'Lihat Cerita Anonim',
-              color: Color(0xFFF4B5A3),
-              onTap: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const DindingDoaPages(showOnlyAnon: true),
-                  ),
-                );
-                if (onReturnFromDoa != null) onReturnFromDoa!();
-              },
-            ),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: _ShortcutButton(
-              label: 'Cek Statistik Mood',
-              color: Color(0xFFB0B8BE),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const MoodTracker()),
-                );
-              },
-            ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: _ShortcutButton(
+                  label: 'Statistik Mood',
+                  icon: Icons.bar_chart,
+                  color: Color(0xFFF4B5A3),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MoodTracker()),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: _ShortcutButton(
+                  label: 'Jurnal',
+                  icon: Icons.book_outlined,
+                  color: Color(0xFFB0B8BE),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const JournalPages()),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: _ShortcutButton(
+                  label: 'Profil',
+                  icon: Icons.person_outline,
+                  color: Color(0xFFF4B5A3),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ProfilePages()),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -499,44 +511,47 @@ class _ShortcutButtonsRow extends StatelessWidget {
 
 // ==========================================
 // Class _ShortcutButton
-// Fungsi: Mendeklarasikan halaman/komponen visual ini.
-// Mengarah ke: Biasanya dipanggil oleh router atau tombol navigasi di file lain.
 // ==========================================
 class _ShortcutButton extends StatelessWidget {
   final String label;
   final Color color;
   final VoidCallback onTap;
+  final IconData? icon;
 
   const _ShortcutButton({
     required this.label,
     required this.color,
     required this.onTap,
+    this.icon,
   });
 
   @override
-  
-  // Fungsi build: Bertugas menggambar (me-render) elemen visual/UI ke layar HP pengguna.
-  // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 40,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Color(0xFFCCC0B7)),
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(12),
         onTap: onTap,
-        child: Center(
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF3F3734),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) Icon(icon, size: 16, color: const Color(0xFF3F3734)),
+            if (icon != null) const SizedBox(height: 2),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF3F3734),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -560,11 +575,11 @@ class _MoodSummaryRow extends StatelessWidget {
     return Row(
       children: [
         _MoodStatusCard(label: 'Senang', imagePath: 'assets/images/senang.png', color: Color(0xFFF1C5B3)),
-        SizedBox(width: 16),
+        SizedBox(width: 6),
         _MoodStatusCard(label: 'Sedih', imagePath: 'assets/images/sedih.png', color: Color(0xFFF4D9CD)),
-        SizedBox(width: 16),
+        SizedBox(width: 6),
         _MoodStatusCard(label: 'Capek', imagePath: 'assets/images/capek.png', color: Color(0xFFD8D4E3)),
-        SizedBox(width: 16),
+        SizedBox(width: 6),
         _MoodStatusCard(label: 'Biasa Aja', imagePath: 'assets/images/biasa_aja.png', color: Color(0xFFE6E1EA)),
       ],
     );
@@ -591,21 +606,21 @@ class _MoodStatusCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 110,
+        height: 74,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Color(0xFFE7D8CF)),
         ),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              height: 48,
+              height: 28,
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(20),
+                  bottom: Radius.circular(12),
                 ),
               ),
             ),
@@ -613,14 +628,14 @@ class _MoodStatusCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(imagePath, height: 48, fit: BoxFit.contain),
-                  SizedBox(height: 4),
+                  Image.asset(imagePath, height: 34, fit: BoxFit.contain),
+                  SizedBox(height: 2),
                   Text(
                     label,
                     style: TextStyle(
                       color: Color(0xFF4A3A36),
                       fontWeight: FontWeight.w700,
-                      fontSize: 14,
+                      fontSize: 11,
                     ),
                   ),
                   SizedBox(height: 8),
@@ -674,8 +689,8 @@ class _RightSidePanels extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _RightStoriesPanel(controller: controller),
-        SizedBox(height: 20),
+        Expanded(child: _RightStoriesPanel(controller: controller)),
+        SizedBox(height: 10),
         _WriteStoryPanel(onReturnFromDoa: onReturnFromDoa),
       ],
     );
@@ -716,10 +731,10 @@ class _RightStoriesPanelState extends State<_RightStoriesPanel> {
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(18),
+      padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Color(0xFFE7D8CF)),
       ),
       child: Column(
@@ -728,31 +743,30 @@ class _RightStoriesPanelState extends State<_RightStoriesPanel> {
           Text(
             'Cerita Terbaru di Dinding Doa',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.w700,
               color: Color(0xFF3F3734),
             ),
           ),
-          SizedBox(height: 16),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            itemCount: widget.controller.rightStories.length,
-                separatorBuilder: (context, index) =>
-                    SizedBox(height: 14),
-                itemBuilder: (context, index) {
+          SizedBox(height: 10),
+          Expanded(
+            child: ListView.separated(
+              padding: EdgeInsets.zero,
+              itemCount: widget.controller.rightStories.length,
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: 8),
+              itemBuilder: (context, index) {
                   return Row(
                     children: [
                       Expanded(
                         child: Container(
-                          height: 38,
+                          height: 28,
                           decoration: BoxDecoration(
                             color: Color(0xFFF7F1EE),
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(10),
                             border: Border.all(color: Color(0xFFE6D9D2)),
                           ),
-                          padding: EdgeInsets.symmetric(horizontal: 14),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           alignment: Alignment.centerLeft,
                           child: Text(
                             widget.controller.rightStories[index]['content'] ?? '',
@@ -760,25 +774,26 @@ class _RightStoriesPanelState extends State<_RightStoriesPanel> {
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               color: Color(0xFF6D5650),
-                              fontSize: 14,
+                              fontSize: 11,
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 12),
+                      SizedBox(width: 8),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFFF4B5A3),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          minimumSize: const Size(88, 44),
+                          minimumSize: const Size(60, 28),
                         ),
                         onPressed: () => _toggleLike(index),
                         icon: Icon(
                           widget.controller.likedStories.contains(widget.controller.rightStories[index]['id'])
                               ? Icons.favorite
                               : Icons.favorite_border,
+                          size: 14,
                           color: widget.controller.likedStories.contains(widget.controller.rightStories[index]['id'])
                               ? Colors.red
                               : Color(0xFF5D4A45),
@@ -786,15 +801,17 @@ class _RightStoriesPanelState extends State<_RightStoriesPanel> {
                         label: Text(
                           'Doa',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
                             color: Color(0xFF5D4A45),
                           ),
                         ),
                       ),
                     ],
                   );
-                },
-              ),
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -817,11 +834,11 @@ class _WriteStoryPanel extends StatelessWidget {
   // Menghubungkan data dari Controller ke dalam bentuk Widget (teks, tombol, gambar).
   Widget build(BuildContext context) {
     return Container(
-      height: 86,
-      padding: EdgeInsets.all(14),
+      height: 52,
+      padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Color(0xFFE7D8CF)),
       ),
       child: Center(
@@ -829,9 +846,9 @@ class _WriteStoryPanel extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xFFF4B5A3),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(14),
             ),
-            minimumSize: const Size.fromHeight(50),
+            minimumSize: const Size.fromHeight(36),
           ),
           onPressed: () async {
             await Navigator.push(
@@ -849,6 +866,153 @@ class _WriteStoryPanel extends StatelessWidget {
               color: Color(0xFF5D4A45),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// ==========================================
+// Fungsi _showChatPickerDialog
+// Fungsi: Menampilkan dialog pilihan antara Chat AI dan Chat Anonim.
+// ==========================================
+void _showChatPickerDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (ctx) => Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      backgroundColor: const Color(0xFFFAF4F0),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Pilih Tipe Chat',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF3F3734),
+              ),
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              'Kamu mau curhat ke siapa?',
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFF7B6F65),
+              ),
+            ),
+            const SizedBox(height: 14),
+            _ChatPickerOption(
+              icon: Icons.smart_toy_outlined,
+              iconColor: const Color(0xFF7B6F65),
+              bgColor: const Color(0xFFE7D8CF),
+              title: 'Chat AI',
+              subtitle: 'Curhat ke teman AI yang selalu siap mendengarkan tanpa menghakimi.',
+              onTap: () {
+                Navigator.of(ctx).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ChatPages()),
+                );
+              },
+            ),
+            const SizedBox(height: 8),
+            _ChatPickerOption(
+              icon: Icons.people_outline,
+              iconColor: const Color(0xFF5D4A45),
+              bgColor: const Color(0xFFF4B5A3),
+              title: 'Chat Anonim',
+              subtitle: 'Ngobrol anonim dengan pengguna lain secara acak.',
+              onTap: () {
+                Navigator.of(ctx).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const PeerChatLobbyPage()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+
+// ==========================================
+// Class _ChatPickerOption
+// Fungsi: Opsi dalam dialog pemilih tipe chat.
+// ==========================================
+class _ChatPickerOption extends StatelessWidget {
+  final IconData icon;
+  final Color iconColor;
+  final Color bgColor;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _ChatPickerOption({
+    super.key,
+    required this.icon,
+    required this.iconColor,
+    required this.bgColor,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: const Color(0xFFE7D8CF)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(icon, color: iconColor, size: 20),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF3F3734),
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      color: Color(0xFF7B6F65),
+                      height: 1.3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.chevron_right, color: Color(0xFFB0A89E), size: 20),
+          ],
         ),
       ),
     );
